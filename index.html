@@ -65,6 +65,7 @@
         pointer-events: none;
         transition: width 650ms cubic-bezier(.2,.8,.2,1);
       }
+      .city-label-layer[hidden] { display: none; }
       .city-leaders {
         position: absolute;
         inset: 0;
@@ -87,14 +88,84 @@
         white-space: nowrap;
         visibility: hidden;
         opacity: 1;
-        pointer-events: none;
+        pointer-events: auto;
+        cursor: pointer;
       }
+      .city-label:hover, .city-label:focus-visible {
+        border-color: var(--accent);
+        color: var(--accent);
+        outline: none;
+      }
+      .search-suggestions {
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 7px;
+        right: 7px;
+        z-index: 8;
+        max-height: min(50vh, 360px);
+        overflow: auto;
+        padding: 5px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: #101820;
+        box-shadow: 0 12px 30px rgba(0,0,0,.4);
+      }
+      .search-suggestions[hidden] { display: none; }
+      .search-suggestion {
+        display: block;
+        width: 100%;
+        padding: 9px 10px;
+        border: 0;
+        border-radius: 3px;
+        background: transparent;
+        color: var(--ink);
+        text-align: left;
+        cursor: pointer;
+      }
+      .search-suggestion:hover, .search-suggestion:focus-visible { background: rgba(158,213,206,.1); outline: none; }
+      .search-suggestion small { display: block; margin-top: 2px; color: var(--muted); font-size: 10px; }
+      .card-progress { margin: 8px 0 0; color: var(--muted); font: 10px ui-monospace, monospace; text-align: center; }
+      .card-map-link { display: inline-flex; margin-top: 10px; color: #315d62; font: 600 10px system-ui, sans-serif; text-decoration: none; }
+      .card-map-link:hover { text-decoration: underline; }
+      body.auth-locked #app-shell { visibility: hidden; pointer-events: none; }
+      .auth-screen { position: fixed; inset: 0; z-index: 100; display: grid; overflow: auto; padding: 28px 16px; place-items: center; background: radial-gradient(ellipse at 18% 18%, rgba(35,83,91,.46), transparent 42%), radial-gradient(ellipse at 85% 78%, rgba(91,58,47,.34), transparent 38%), rgba(5,9,14,.88); backdrop-filter: blur(12px); }
+      .auth-screen[hidden] { display: none; }
+      .auth-card { width: min(100%, 430px); padding: 30px; border: 1px solid rgba(192,214,224,.18); border-radius: 12px; background: rgba(12,20,28,.96); box-shadow: 0 28px 100px rgba(0,0,0,.52); }
+      .auth-brand { margin: 0 0 6px; color: var(--accent); font: 10px ui-monospace, monospace; letter-spacing: .16em; text-transform: uppercase; }
+      .auth-title { margin: 0; font-size: clamp(26px, 7vw, 34px); font-weight: 550; letter-spacing: -.03em; }
+      .auth-intro { margin: 8px 0 22px; color: #b6c3cb; font-size: 13px; line-height: 1.5; }
+      .auth-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-bottom: 20px; padding: 4px; border: 1px solid var(--line); border-radius: 5px; background: rgba(255,255,255,.025); }
+      .auth-tab { padding: 9px; border: 0; border-radius: 3px; background: transparent; color: var(--muted); font: 550 12px system-ui, sans-serif; cursor: pointer; }
+      .auth-tab[aria-selected="true"] { background: rgba(158,213,206,.14); color: var(--accent); }
+      .auth-form { display: grid; gap: 13px; }
+      .auth-field { display: grid; gap: 6px; color: #c3d0d5; font-size: 11px; }
+      .auth-field input:not([type="file"]) { width: 100%; height: 42px; padding: 0 11px; border: 1px solid var(--line); border-radius: 4px; outline: none; background: rgba(255,255,255,.045); color: var(--ink); font: 13px system-ui, sans-serif; }
+      .auth-field input:focus { border-color: rgba(158,213,206,.7); }
+      .auth-field input[type="file"] { width: 100%; color: var(--muted); font: 11px system-ui, sans-serif; }
+      .auth-avatar-row { display: flex; align-items: center; gap: 10px; }
+      .auth-avatar-preview, .profile-avatar { display: grid; flex: 0 0 auto; overflow: hidden; place-items: center; border: 1px solid rgba(192,214,224,.2); border-radius: 50%; background: linear-gradient(145deg,#24434a,#a06b53); }
+      .auth-avatar-preview { width: 52px; height: 52px; font-size: 25px; }
+      .auth-avatar-preview img, .profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
+      .avatar-options { display: flex; flex-wrap: wrap; gap: 6px; }
+      .avatar-option { width: 34px; height: 34px; padding: 0; border: 1px solid var(--line); border-radius: 50%; background: rgba(255,255,255,.04); font-size: 17px; cursor: pointer; }
+      .avatar-option[aria-pressed="true"] { border-color: var(--accent); background: rgba(158,213,206,.14); }
+      .auth-submit { min-height: 43px; margin-top: 4px; border: 1px solid rgba(158,213,206,.4); border-radius: 4px; background: #a4d8cf; color: #0b171a; font: 650 12px system-ui, sans-serif; cursor: pointer; }
+      .auth-submit:disabled { opacity: .65; cursor: progress; }
+      .auth-status { min-height: 18px; margin: 14px 0 0; color: #ffb5a8; font-size: 11px; line-height: 1.45; }
+      .auth-privacy { margin: 12px 0 0; color: #80919a; font-size: 10px; line-height: 1.5; }
+      .user-profile { position: fixed; z-index: 20; top: 22px; left: 22px; display: flex; max-width: 220px; align-items: center; gap: 9px; padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; background: rgba(9,16,23,.94); box-shadow: 0 14px 40px rgba(0,0,0,.32); backdrop-filter: blur(18px); }
+      .user-profile[hidden] { display: none; }
+      .profile-avatar { width: 32px; height: 32px; font-size: 18px; }
+      .profile-name { overflow: hidden; color: var(--ink); font-size: 11px; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+      .logout-button { flex: 0 0 auto; padding: 7px 9px; border: 1px solid rgba(192,214,224,.2); border-radius: 3px; background: rgba(255,255,255,.04); color: #d3dfe2; font: 550 10px system-ui, sans-serif; cursor: pointer; }
+      .logout-button:hover { border-color: #ff9a9a; color: #ffb5a8; }
       .search-dock {
         position: fixed;
-        z-index: 7;
+        z-index: 20;
         top: 22px;
         right: 22px;
         display: flex;
+        align-items: center;
         width: min(570px, calc(100vw - 44px));
         gap: 7px;
         padding: 7px;
@@ -145,10 +216,11 @@
       .random-button:disabled { opacity: .6; cursor: progress; }
       .info-panel {
         position: fixed;
-        z-index: 5;
+        z-index: 10;
         inset: 0 0 0 auto;
         width: var(--panel-width);
         overflow: auto;
+        overscroll-behavior: contain;
         border-left: 1px solid var(--line);
         background: rgba(10, 17, 24, 0.98);
         box-shadow: -24px 0 70px rgba(0, 0, 0, 0.24);
@@ -181,15 +253,20 @@
       .places-heading { display: flex; align-items: baseline; justify-content: space-between; margin: 18px 0 11px; }
       .places-heading h2, .saved-heading { margin: 0; font-size: 14px; font-weight: 550; }
       .places-city { color: var(--muted); font: 9px ui-monospace, monospace; text-transform: uppercase; }
+      .polaroid-slot { position: relative; display: grid; margin: 16px 3px 4px; padding: 8px 10px 20px; }
+      .polaroid-slot::before, .polaroid-slot::after { position: absolute; inset: 12px 10px 14px; border-radius: 4px; background: #d7d4ca; box-shadow: 0 12px 30px rgba(0,0,0,.2); content: ""; pointer-events: none; }
+      .polaroid-slot::before { z-index: 0; transform: rotate(4deg); }
+      .polaroid-slot::after { z-index: 1; background: #f0eee5; transform: rotate(-2.5deg); }
       .polaroid { padding: 9px 9px 13px; border-radius: 4px; background: #e9e7dc; color: #172229; box-shadow: 0 12px 30px rgba(0,0,0,.24); transform: rotate(-1deg); transition: transform 280ms ease; }
+        .polaroid { position: relative; z-index: 2; grid-area: 1 / 1; touch-action: pan-y; user-select: none; }
         .polaroid.is-dragging { transition: none; cursor: grabbing; }
         .polaroid.swipe-liked { transform: translate(130%, -5%) rotate(18deg); opacity: 0; }
         .polaroid.swipe-disliked { transform: translate(-130%, -5%) rotate(-18deg); opacity: 0; }
       .polaroid:hover { transform: rotate(0deg) translateY(-2px); }
       .polaroid-image { position: relative; overflow: hidden; aspect-ratio: 1.18; background: #16232b; }
-      .polaroid-image img { position: relative; z-index: 1; display: block; width: 100%; height: 100%; object-fit: cover; opacity: 1; }
-      .polaroid-photo-empty { display: grid; width: 100%; height: 100%; padding: 18px; place-items: center; background: linear-gradient(145deg, #1d3038, #101a20); color: #b6c8ce; font: 10px/1.5 ui-monospace, monospace; text-align: center; }
-      .polaroid-photo-empty.image-fallback-placeholder { position: relative; z-index: 0; background: linear-gradient(145deg, #824f3b, #d39b62); color: #fff7e8; font: 600 12px/1.4 system-ui, sans-serif; text-shadow: 0 1px 2px rgba(0,0,0,.35); }
+      .polaroid-image img { position: absolute; inset: 0; z-index: 1; display: block; width: 100%; height: 100%; object-fit: cover; opacity: 1; }
+      .polaroid-photo-empty { position: absolute; inset: 0; z-index: 0; display: grid; width: 100%; height: 100%; padding: 18px; place-items: center; background: linear-gradient(145deg, #1d3038, #101a20); color: #b6c8ce; font: 10px/1.5 ui-monospace, monospace; text-align: center; }
+      .polaroid-photo-empty.image-fallback-placeholder { background: linear-gradient(145deg, #824f3b, #d39b62); color: #fff7e8; font: 600 12px/1.4 system-ui, sans-serif; text-shadow: 0 1px 2px rgba(0,0,0,.35); }
         .polaroid-photo-empty.is-loading { background: linear-gradient(110deg, #17262d 8%, #243940 18%, #17262d 33%); background-size: 200% 100%; animation: photo-shimmer 1.4s linear infinite; }
         @keyframes photo-shimmer { to { background-position: -200% 0; } }
       .polaroid-photo-empty[hidden] { display: none; }
@@ -228,35 +305,53 @@
       .saved-list { display: flex; flex-wrap: wrap; gap: 5px; min-height: 22px; }
       .saved-place { padding: 4px 6px; border: 1px solid var(--line); border-radius: 3px; color: #dce5e8; font-size: 10px; }
       .saved-none { color: #7f9098; font-size: 10px; }
+      @media (max-width: 980px) {
+        .user-profile { top: 88px; left: 14px; }
+      }
       @media (max-width: 720px) {
         :root { --panel-width: 100vw; }
         body.search-open #scene-viewport { width: 100%; }
-        .info-panel { inset: auto 0 0; width: 100%; height: min(62vh, 570px); border: 1px solid var(--line); border-bottom: 0; border-radius: 10px 10px 0 0; transform: translateY(102%); }
+        .info-panel { inset: auto 0 0; width: 100%; height: min(62vh, 570px); max-height: calc(100vh - 82px); border: 1px solid var(--line); border-bottom: 0; border-radius: 10px 10px 0 0; transform: translateY(102%); }
         body.search-open .info-panel { transform: translateY(0); }
         .panel-content { padding: 82px 20px 24px; }
         .search-dock { top: 14px; right: 14px; width: calc(100vw - 28px); gap: 5px; }
         .random-button { padding: 0 8px; font-size: 10px; }
         .search-input { padding: 0 8px; font-size: 12px; }
+        .user-profile { top: 78px; }
+      }
+      @media (max-width: 480px) {
+        .search-dock { display: grid; grid-template-columns: minmax(0, 1fr) auto; }
+        .search-input { grid-column: 1 / -1; width: 100%; }
+        .search-button, .random-button { min-width: 0; padding-right: 9px; padding-left: 9px; }
+        .random-button { justify-self: end; }
+        .user-profile { top: 122px; }
+        .auth-card { padding: 24px 20px; }
       }
     </style>
   </head>
-  <body>
+  <body class="auth-locked">
+    <div id="app-shell">
     <div id="scene-viewport">
       <div class="loading" id="loading">Loading Earth</div>
       <div class="country-tooltip" id="country-tooltip" role="status" aria-live="polite" hidden>
         <span class="country-tooltip-label" id="country-tooltip-label"></span>
         <strong class="country-tooltip-name" id="country-tooltip-name"></strong>
       </div>
-      <div class="city-label-layer" id="city-label-layer" aria-hidden="true">
+      <div class="city-label-layer" id="city-label-layer" aria-label="Major city map markers">
         <svg class="city-leaders" id="city-leaders"></svg>
       </div>
     </div>
     <form class="search-dock" id="location-search-form" role="search">
-      <input class="search-input" id="location-search" type="search" list="destination-suggestions" placeholder="Search a city or country" aria-label="Search a city or country" autocomplete="off" />
-      <datalist id="destination-suggestions"></datalist>
+      <input class="search-input" id="location-search" type="search" placeholder="Search a city or country" aria-label="Search a city or country" aria-autocomplete="list" aria-controls="destination-suggestions" autocomplete="off" />
+      <div class="search-suggestions" id="destination-suggestions" role="listbox" hidden></div>
       <button class="search-button" id="location-search-button" type="submit">Explore</button>
       <button class="random-button" id="random-destination" type="button">🎲 Random Destination</button>
     </form>
+    <div class="user-profile" id="user-profile" hidden>
+      <span class="profile-avatar" id="profile-avatar" aria-hidden="true"></span>
+      <span class="profile-name" id="profile-name"></span>
+      <button class="logout-button" id="logout-button" type="button">Log out</button>
+    </div>
     <aside class="info-panel" id="info-panel" aria-live="polite" aria-label="Location information">
       <div class="panel-content">
         <div class="panel-kicker" id="panel-kicker">Location guide</div>
@@ -281,8 +376,9 @@
         </div>
         <section class="city-places" id="city-places" hidden aria-label="City recommendations">
           <div class="places-heading"><h2>Polaroid picks</h2><span class="places-city" id="places-city"></span></div>
-          <p class="osm-attribution">Static destination preview</p>
+          <p class="osm-attribution">Places © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors</a> · Swipe right to save · left to pass</p>
           <div class="polaroid-slot" id="polaroid-slot"></div>
+          <p class="card-progress" id="flashcard-progress" aria-live="polite"></p>
           <div class="saved-section">
             <h2 class="saved-heading">Saved for <span id="saved-city-name">this city</span></h2>
             <div class="saved-groups">
@@ -299,10 +395,310 @@
         <div class="detail-grid" id="location-details" hidden></div>
       </div>
     </aside>
-    
+    </div>
+    <section class="auth-screen" id="auth-screen" aria-labelledby="auth-title">
+      <div class="auth-card">
+        <p class="auth-brand">Elsewhere · your travel journal</p>
+        <h1 class="auth-title" id="auth-title">Find your elsewhere.</h1>
+        <p class="auth-intro" id="auth-intro">Sign in to pick up where your next journey begins.</p>
+        <div class="auth-tabs" role="tablist" aria-label="Account access">
+          <button class="auth-tab" id="login-tab" type="button" role="tab" aria-controls="login-form" aria-selected="true">Log in</button>
+          <button class="auth-tab" id="signup-tab" type="button" role="tab" aria-controls="signup-form" aria-selected="false">Create account</button>
+        </div>
+        <form class="auth-form" id="login-form" role="tabpanel" aria-labelledby="login-tab" novalidate>
+          <label class="auth-field">Email
+            <input id="login-email" type="email" autocomplete="email" maxlength="254" required />
+          </label>
+          <label class="auth-field">Password
+            <input id="login-password" type="password" autocomplete="current-password" required />
+          </label>
+          <button class="auth-submit" id="login-submit" type="submit">Log in</button>
+        </form>
+        <form class="auth-form" id="signup-form" role="tabpanel" aria-labelledby="signup-tab" hidden novalidate>
+          <label class="auth-field">Username
+            <input id="signup-username" type="text" autocomplete="username" minlength="3" maxlength="24" required />
+          </label>
+          <label class="auth-field">Email
+            <input id="signup-email" type="email" autocomplete="email" maxlength="254" required />
+          </label>
+          <label class="auth-field">Password <span>At least 8 characters</span>
+            <input id="signup-password" type="password" autocomplete="new-password" minlength="8" required />
+          </label>
+          <label class="auth-field">Confirm password
+            <input id="signup-confirm-password" type="password" autocomplete="new-password" minlength="8" required />
+          </label>
+          <div class="auth-field">
+            <span>Profile picture</span>
+            <div class="auth-avatar-row">
+              <span class="auth-avatar-preview" id="auth-avatar-preview" aria-hidden="true">🧭</span>
+              <div>
+                <div class="avatar-options" id="avatar-options" aria-label="Choose a profile avatar"></div>
+                <label class="auth-field">Or upload a picture
+                  <input id="signup-avatar-file" type="file" accept="image/*" />
+                </label>
+              </div>
+            </div>
+          </div>
+          <button class="auth-submit" id="signup-submit" type="submit">Create account</button>
+        </form>
+        <p class="auth-status" id="auth-status" role="alert" aria-live="polite"></p>
+        <p class="auth-privacy">Your account is stored only in this browser. Use a unique password; this demo has no server-side account recovery or synchronization.</p>
+      </div>
+    </section>
 <script type="module">
 import * as THREE from "https://esm.sh/three@0.180.0";
 import { OrbitControls } from "https://esm.sh/three@0.180.0/examples/jsm/controls/OrbitControls.js";
+const accountStorageKey="elsewhere.accounts.v1";
+const accountSessionKey="elsewhere.session.v1";
+const passwordIterations=310000;
+const presetAvatars=["🧭","🌍","🪁","🌿","☀️","🌙"];
+const authScreen=document.getElementById("auth-screen");
+const authStatus=document.getElementById("auth-status");
+const loginForm=document.getElementById("login-form");
+const signupForm=document.getElementById("signup-form");
+const loginTab=document.getElementById("login-tab");
+const signupTab=document.getElementById("signup-tab");
+const userProfile=document.getElementById("user-profile");
+let activeProfile=null;
+let selectedAvatar="🧭";
+
+function readAccounts(){
+  const stored=localStorage.getItem(accountStorageKey);
+  if(stored===null)return [];
+  const accounts=JSON.parse(stored);
+  if(!Array.isArray(accounts))throw new Error("Saved account data is invalid. Clear this site's storage to continue.");
+  return accounts;
+}
+
+function getPasswordHash(password,salt){
+  if(!crypto.subtle)throw new Error("Secure password hashing is unavailable in this browser context.");
+  const saltBytes=Uint8Array.from(atob(salt),character=>character.charCodeAt(0));
+  return crypto.subtle.importKey("raw",new TextEncoder().encode(password),"PBKDF2",false,["deriveBits"])
+    .then(key=>crypto.subtle.deriveBits({name:"PBKDF2",salt:saltBytes,iterations:passwordIterations,hash:"SHA-256"},key,256))
+    .then(bits=>btoa(String.fromCharCode(...new Uint8Array(bits))));
+}
+
+function setAuthMode(mode){
+  const signingUp=mode==="signup";
+  loginForm.hidden=signingUp;
+  signupForm.hidden=!signingUp;
+  loginTab.setAttribute("aria-selected",String(!signingUp));
+  signupTab.setAttribute("aria-selected",String(signingUp));
+  document.getElementById("auth-intro").textContent=signingUp
+    ?"Create a profile for your next journey."
+    :"Sign in to pick up where your next journey begins.";
+  authStatus.textContent="";
+}
+
+function showAuth(mode="login",message=""){
+  activeProfile=null;
+  document.body.classList.add("auth-locked");
+  authScreen.hidden=false;
+  userProfile.hidden=true;
+  setAuthMode(mode);
+  authStatus.textContent=message;
+  document.getElementById(mode==="signup"?"signup-username":"login-email").focus();
+}
+
+function setAuthenticated(profile){
+  activeProfile=profile;
+  document.body.classList.remove("auth-locked");
+  authScreen.hidden=true;
+  userProfile.hidden=false;
+  document.getElementById("profile-name").textContent=profile.username;
+  const avatar=document.getElementById("profile-avatar");
+  avatar.replaceChildren();
+  if(profile.avatar.startsWith("data:image/jpeg;base64,")){
+    const image=document.createElement("img");
+    image.src=profile.avatar;
+    image.alt="";
+    avatar.append(image);
+  }else{
+    avatar.textContent=presetAvatars.includes(profile.avatar)?profile.avatar:"🧭";
+  }
+}
+
+function setAuthBusy(form,busy){
+  const submit=form.querySelector('button[type="submit"]');
+  submit.disabled=busy;
+  submit.textContent=busy?(form===loginForm?"Signing in…":"Creating account…"):(form===loginForm?"Log in":"Create account");
+}
+
+function resetAvatarSelection(){
+  selectedAvatar="🧭";
+  document.getElementById("signup-avatar-file").value="";
+  avatarPreview.replaceChildren();
+  avatarPreview.textContent=selectedAvatar;
+  avatarOptions.querySelectorAll("button").forEach(button=>{
+    button.setAttribute("aria-pressed",String(button.textContent===selectedAvatar));
+  });
+}
+
+function encodeAvatarImage(file){
+  if(!file.type.startsWith("image/"))return Promise.reject(new Error("Choose an image file for your profile picture."));
+  if(file.size>8*1024*1024)return Promise.reject(new Error("Choose an image smaller than 8 MB."));
+  return createImageBitmap(file).then(bitmap=>{
+    const canvas=document.createElement("canvas");
+    const scale=Math.min(1,256/Math.max(bitmap.width,bitmap.height));
+    canvas.width=Math.max(1,Math.round(bitmap.width*scale));
+    canvas.height=Math.max(1,Math.round(bitmap.height*scale));
+    const context=canvas.getContext("2d");
+    if(!context)throw new Error("This browser could not prepare the profile picture.");
+    context.drawImage(bitmap,0,0,canvas.width,canvas.height);
+    bitmap.close();
+    return canvas.toDataURL("image/jpeg",.82);
+  });
+}
+
+function initializeAccountUi(){
+  try{
+    const accounts=readAccounts();
+    const sessionEmail=localStorage.getItem(accountSessionKey);
+    const profile=accounts.find(account=>account.email===sessionEmail);
+    if(profile&&typeof profile.username==="string"&&typeof profile.avatar==="string"){
+      setAuthenticated(profile);
+      return;
+    }
+    if(sessionEmail)localStorage.removeItem(accountSessionKey);
+    showAuth(accounts.length?"login":"signup");
+  }catch(error){
+    console.error("Unable to load saved account data:",error);
+    showAuth("login",`Unable to read account storage: ${error.message}`);
+  }
+}
+
+loginTab.addEventListener("click",()=>setAuthMode("login"));
+signupTab.addEventListener("click",()=>setAuthMode("signup"));
+loginForm.addEventListener("submit",async event=>{
+  event.preventDefault();
+  authStatus.textContent="";
+  const email=document.getElementById("login-email").value.trim().toLowerCase();
+  const password=document.getElementById("login-password").value;
+  if(!email||!password){
+    authStatus.textContent="Enter your email and password.";
+    return;
+  }
+  setAuthBusy(loginForm,true);
+  try{
+    const account=readAccounts().find(item=>item.email===email);
+    if(!account||typeof account.salt!=="string"||typeof account.passwordHash!=="string"){
+      authStatus.textContent="The email or password is incorrect.";
+      return;
+    }
+    const passwordHash=await getPasswordHash(password,account.salt);
+    if(passwordHash!==account.passwordHash){
+      authStatus.textContent="The email or password is incorrect.";
+      return;
+    }
+    localStorage.setItem(accountSessionKey,account.email);
+    document.getElementById("login-password").value="";
+    setAuthenticated(account);
+  }catch(error){
+    console.error("Unable to sign in:",error);
+    authStatus.textContent=`Unable to sign in: ${error.message}`;
+  }finally{
+    setAuthBusy(loginForm,false);
+  }
+});
+
+const avatarOptions=document.getElementById("avatar-options");
+const avatarPreview=document.getElementById("auth-avatar-preview");
+for(const avatar of presetAvatars){
+  const option=document.createElement("button");
+  option.type="button";
+  option.className="avatar-option";
+  option.textContent=avatar;
+  option.setAttribute("aria-label",`Choose ${avatar} profile picture`);
+  option.setAttribute("aria-pressed",String(avatar===selectedAvatar));
+  option.addEventListener("click",()=>{
+    selectedAvatar=avatar;
+    document.getElementById("signup-avatar-file").value="";
+    avatarPreview.replaceChildren();
+    avatarPreview.textContent=avatar;
+    avatarOptions.querySelectorAll("button").forEach(button=>button.setAttribute("aria-pressed",String(button===option)));
+  });
+  avatarOptions.append(option);
+}
+
+document.getElementById("signup-avatar-file").addEventListener("change",async event=>{
+  const file=event.target.files?.[0];
+  if(!file)return;
+  authStatus.textContent="";
+  try{
+    selectedAvatar=await encodeAvatarImage(file);
+    avatarPreview.replaceChildren();
+    const image=document.createElement("img");
+    image.src=selectedAvatar;
+    image.alt="";
+    avatarPreview.append(image);
+    avatarOptions.querySelectorAll("button").forEach(button=>button.setAttribute("aria-pressed","false"));
+  }catch(error){
+    event.target.value="";
+    authStatus.textContent=error.message;
+  }
+});
+
+signupForm.addEventListener("submit",async event=>{
+  event.preventDefault();
+  authStatus.textContent="";
+  const username=document.getElementById("signup-username").value.trim();
+  const email=document.getElementById("signup-email").value.trim().toLowerCase();
+  const password=document.getElementById("signup-password").value;
+  const confirmation=document.getElementById("signup-confirm-password").value;
+  if(!/^[a-zA-Z0-9_][a-zA-Z0-9_.-]{2,23}$/.test(username)){
+    authStatus.textContent="Username must be 3–24 characters and use letters, numbers, dots, dashes, or underscores.";
+    return;
+  }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)||email.length>254){
+    authStatus.textContent="Enter a valid email address.";
+    return;
+  }
+  if(password.length<8){
+    authStatus.textContent="Use a password with at least 8 characters.";
+    return;
+  }
+  if(password!==confirmation){
+    authStatus.textContent="The passwords do not match.";
+    return;
+  }
+  setAuthBusy(signupForm,true);
+  try{
+    const accounts=readAccounts();
+    if(accounts.some(account=>account.email===email)){
+      authStatus.textContent="An account already exists for that email. Log in instead.";
+      return;
+    }
+    const saltBytes=crypto.getRandomValues(new Uint8Array(16));
+    const salt=btoa(String.fromCharCode(...saltBytes));
+    const passwordHash=await getPasswordHash(password,salt);
+    const account={email,username,avatar:selectedAvatar,salt,passwordHash};
+    localStorage.setItem(accountStorageKey,JSON.stringify([...accounts,account]));
+    localStorage.setItem(accountSessionKey,email);
+    signupForm.reset();
+    resetAvatarSelection();
+    setAuthenticated(account);
+  }catch(error){
+    console.error("Unable to create account:",error);
+    authStatus.textContent=`Unable to create account: ${error.message}`;
+  }finally{
+    setAuthBusy(signupForm,false);
+  }
+});
+
+document.getElementById("logout-button").addEventListener("click",()=>{
+  try{
+    localStorage.removeItem(accountSessionKey);
+    loginForm.reset();
+    signupForm.reset();
+    resetAvatarSelection();
+    showAuth("login","You have been logged out.");
+  }catch(error){
+    console.error("Unable to log out:",error);
+    window.alert(`Unable to log out: ${error.message}`);
+  }
+});
+
+initializeAccountUi();
 const viewport=document.getElementById("scene-viewport");
 const loading=document.getElementById("loading");
 const scene=new THREE.Scene(); scene.background=new THREE.Color(0x070b11);
@@ -310,23 +706,1074 @@ const camera=new THREE.PerspectiveCamera(38,viewport.clientWidth/viewport.client
 camera.position.set(0,0,3.25);
 const renderer=new THREE.WebGLRenderer({antialias:true,alpha:false});
 renderer.setPixelRatio(Math.min(devicePixelRatio,2)); renderer.setSize(viewport.clientWidth,viewport.clientHeight); renderer.outputColorSpace=THREE.SRGBColorSpace; viewport.prepend(renderer.domElement);
-const controls=new OrbitControls(camera,renderer.domElement); controls.enableDamping=true; controls.enablePan=false; controls.minDistance=1.8; controls.maxDistance=6;
+const controls=new OrbitControls(camera,renderer.domElement); controls.enableDamping=true; controls.enablePan=false; controls.minDistance=1.15; controls.maxDistance=6; controls.autoRotate=true; controls.autoRotateSpeed=.5;
 scene.add(new THREE.AmbientLight(0xffffff,1.5));
 const sun=new THREE.DirectionalLight(0xffffff,2.2); sun.position.set(5,3,5); scene.add(sun);
 const earth=new THREE.Mesh(new THREE.SphereGeometry(1,96,96),new THREE.MeshStandardMaterial({color:0x6f9caa,roughness:1}));
 scene.add(earth);
 new THREE.TextureLoader().load("https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg",t=>{t.colorSpace=THREE.SRGBColorSpace;earth.material.map=t;earth.material.color.set(0xffffff);earth.material.needsUpdate=true;loading.hidden=true;},undefined,()=>{loading.hidden=true;});
+const raycaster=new THREE.Raycaster();
+const pointer=new THREE.Vector2();
+const countryTooltip=document.getElementById("country-tooltip");
+const countryTooltipLabel=document.getElementById("country-tooltip-label");
+const countryTooltipName=document.getElementById("country-tooltip-name");
+let countryFeatures=null;
+let countryBoundaryError=null;
+let pointerPosition=null;
+let hoveredCountry=null;
+let pointerDown=null;
+let pointerDragged=false;
+
+function showCountryTooltip(position,label,name){
+  countryTooltipLabel.textContent=label;
+  countryTooltipName.textContent=name;
+  countryTooltip.hidden=false;
+  const bounds=viewport.getBoundingClientRect();
+  const left=Math.min(position.x+14,bounds.right-countryTooltip.offsetWidth-8);
+  const top=Math.min(position.y+14,bounds.bottom-countryTooltip.offsetHeight-8);
+  countryTooltip.style.left=`${Math.max(bounds.left+8,left)}px`;
+  countryTooltip.style.top=`${Math.max(bounds.top+8,top)}px`;
+}
+
+function hideCountryTooltip(){
+  countryTooltip.hidden=true;
+  hoveredCountry=null;
+  renderer.domElement.style.cursor="";
+}
+
+function pointInRing(longitude,latitude,ring){
+  let inside=false;
+  for(let i=0,j=ring.length-1;i<ring.length;j=i++){
+    const [rawXi,yi]=ring[i];
+    const [rawXj,yj]=ring[j];
+    let xi=rawXi,xj=rawXj;
+    while(xi-longitude>180)xi-=360;
+    while(xi-longitude< -180)xi+=360;
+    while(xj-longitude>180)xj-=360;
+    while(xj-longitude< -180)xj+=360;
+    if((yi>latitude)!==(yj>latitude)&&longitude<(xj-xi)*(latitude-yi)/(yj-yi)+xi)inside=!inside;
+  }
+  return inside;
+}
+
+function pointInCountry(longitude,latitude,geometry){
+  const polygons=geometry.type==="Polygon"?[geometry.coordinates]:geometry.type==="MultiPolygon"?geometry.coordinates:[];
+  return polygons.some(rings=>pointInRing(longitude,latitude,rings[0])&&!rings.slice(1).some(ring=>pointInRing(longitude,latitude,ring)));
+}
+
+function getCountryAt(intersection){
+  if(!countryFeatures||!intersection.uv)return null;
+  const longitude=intersection.uv.x*360-180;
+  const latitude=intersection.uv.y*180-90;
+  const feature=countryFeatures.find(country=>country.geometry&&pointInCountry(longitude,latitude,country.geometry));
+  return feature?.properties?.ADMIN||feature?.properties?.name||null;
+}
+
+function updateCountryHover(position=pointerPosition){
+  if(!position)return;
+  const rect=renderer.domElement.getBoundingClientRect();
+  if(position.x<rect.left||position.x>rect.right||position.y<rect.top||position.y>rect.bottom){
+    hideCountryTooltip();
+    return;
+  }
+  pointer.set((position.x-rect.left)/rect.width*2-1,-(position.y-rect.top)/rect.height*2+1);
+  raycaster.setFromCamera(pointer,camera);
+  const intersection=raycaster.intersectObject(earth,false)[0];
+  if(!intersection){
+    hideCountryTooltip();
+    return;
+  }
+  const country=getCountryAt(intersection);
+  if(country){
+    hoveredCountry=country;
+    renderer.domElement.style.cursor="pointer";
+    showCountryTooltip(position,"COUNTRY",country);
+  }else if(countryBoundaryError){
+    hoveredCountry=null;
+    renderer.domElement.style.cursor="";
+    showCountryTooltip(position,"MAP DATA","Country boundaries unavailable");
+  }else if(!countryFeatures){
+    hoveredCountry=null;
+    renderer.domElement.style.cursor="";
+    showCountryTooltip(position,"MAP DATA","Loading country boundaries…");
+  }else{
+    hideCountryTooltip();
+  }
+}
+
+renderer.domElement.addEventListener("pointermove",event=>{
+  pointerPosition={x:event.clientX,y:event.clientY};
+  if(pointerDown&&Math.hypot(event.clientX-pointerDown.x,event.clientY-pointerDown.y)>4)pointerDragged=true;
+  updateCountryHover(pointerPosition);
+});
+renderer.domElement.addEventListener("pointerleave",()=>{
+  pointerPosition=null;
+  hideCountryTooltip();
+});
+renderer.domElement.addEventListener("pointerdown",event=>{
+  pointerDown={x:event.clientX,y:event.clientY};
+  pointerDragged=false;
+});
+renderer.domElement.addEventListener("pointerup",()=>{pointerDown=null;});
+renderer.domElement.addEventListener("pointercancel",()=>{pointerDown=null;pointerDragged=false;});
+renderer.domElement.addEventListener("click",event=>{
+  if(pointerDragged)return;
+  pointerPosition={x:event.clientX,y:event.clientY};
+  updateCountryHover(pointerPosition);
+  if(!hoveredCountry)return;
+  input.value=hoveredCountry;
+  const country=hoveredCountry;
+  hideCountryTooltip();
+  selectDestination({name:country,kind:"country"});
+});
+controls.addEventListener("change",()=>updateCountryHover());
+const countryDataPromise=fetch("https://cdn.jsdelivr.net/gh/nvkelso/natural-earth-vector@master/geojson/ne_110m_admin_0_countries.geojson")
+  .then(response=>{
+    if(!response.ok)throw new Error(`Country data request failed: ${response.status}`);
+    return response.json();
+  })
+  .then(data=>{
+    if(!Array.isArray(data.features))throw new Error("Country data did not contain GeoJSON features");
+    countryFeatures=data.features;
+    updateCountryHover();
+    if(document.activeElement===input)renderSearchSuggestions();
+  })
+  .catch(error=>{
+    countryBoundaryError=error;
+    console.error("Unable to load country boundaries:",error);
+    updateCountryHover();
+  });
 const glow=new THREE.Mesh(new THREE.SphereGeometry(1.025,64,64),new THREE.MeshBasicMaterial({color:0x6cbac8,transparent:true,opacity:.08,side:THREE.BackSide}));scene.add(glow);
 const stars=new THREE.BufferGeometry(), positions=[]; for(let i=0;i<1800;i++){const v=new THREE.Vector3().randomDirection().multiplyScalar(12+Math.random()*25);positions.push(v.x,v.y,v.z);} stars.setAttribute("position",new THREE.Float32BufferAttribute(positions,3));scene.add(new THREE.Points(stars,new THREE.PointsMaterial({color:0x9eb9c5,size:.035,transparent:true,opacity:.8})));
 const presets=[["Kyoto, Japan","Temples, gardens and traditional streets"],["Reykjavík, Iceland","Northern landscapes and coastal culture"],["Marrakech, Morocco","Markets, architecture and desert gateways"],["Lisbon, Portugal","Historic neighbourhoods and ocean views"],["Cape Town, South Africa","Mountain scenery and coastal experiences"],["Cusco, Peru","Andean heritage and historic streets"]];
 const form=document.getElementById("location-search-form"),input=document.getElementById("location-search"),random=document.getElementById("random-destination");
-function showPlace(name,description="Explore this destination on the globe."){document.body.classList.add("search-open");document.getElementById("panel-kicker").textContent="Destination preview";document.getElementById("panel-title").textContent=name;document.getElementById("panel-subtitle").textContent=description;document.getElementById("discovery-status").textContent="UI preview · live place discovery is disabled";document.getElementById("discovery-progress-label").textContent="Destination selected";document.getElementById("city-places").hidden=false;document.getElementById("places-city").textContent=name;document.getElementById("polaroid-slot").innerHTML='<div class="place-empty">This is a visual preview. Live recommendations and map data are not connected.</div>';document.getElementById("location-details").hidden=false;document.getElementById("location-details").innerHTML='<div class="detail-row"><span class="detail-label">Mode</span><span class="detail-value">UI-only preview</span></div><div class="detail-row"><span class="detail-label">Destination</span><span class="detail-value"></span></div>';document.querySelector("#location-details .detail-row:last-child .detail-value").textContent=name;}
-form.addEventListener("submit",e=>{e.preventDefault();const value=input.value.trim();if(value)showPlace(value);});
-random.addEventListener("click",()=>{const p=presets[Math.floor(Math.random()*presets.length)];input.value=p[0];showPlace(p[0],p[1]);});
-const cats=["All","Food & drink","Culture","Nature","Landmarks"];const filters=document.getElementById("category-filters");cats.forEach((c,i)=>{const b=document.createElement("button");b.type="button";b.className="category-filter";b.textContent=c;b.setAttribute("aria-pressed",i===0?"true":"false");b.addEventListener("click",()=>{filters.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));document.getElementById("discovery-status").textContent="Category selected · demo mode";});filters.appendChild(b);});
-document.getElementById("restart-discovery").disabled=false;document.getElementById("restart-discovery").addEventListener("click",()=>{document.getElementById("discovery-status").textContent="Ready · choose a destination to preview";});
+let cameraFlight=0;
+let cameraFlightActive=false;
+let locationRequest=0;
+let selectedDestination=null;
+let currentFlashcards=[];
+let allRecommendations=[];
+let flashcardIndex=0;
+let flashcardDragStart=null;
+let recommendationsLoading=false;
+let recommendationsError="";
+let recommendationRequest=0;
+let selectedCategory="All";
+const savedFlashcards=new Map();
+const recommendationCategories=["Food & drink","Culture","Nature","Landmarks"];
+const destinationExperienceTemplates=[
+  {category:"Food & drink",name:"Local market stroll",description:"Browse seasonal produce, regional snacks, and everyday favorites around"},
+  {category:"Food & drink",name:"Neighborhood coffee stop",description:"Pause at independent cafés and try a local coffee style in"},
+  {category:"Food & drink",name:"Regional flavors",description:"Look for classic dishes and ingredients that give this destination its own food identity:"},
+  {category:"Food & drink",name:"Bakery window tour",description:"Sample breads, pastries, and sweet specialties made for a city break in"},
+  {category:"Food & drink",name:"Evening food scene",description:"Follow the dinner-hour buzz through casual kitchens and lively dining streets in"},
+  {category:"Culture",name:"City history walk",description:"Connect historic streets, civic spaces, and neighborhood stories across"},
+  {category:"Culture",name:"Art and museum afternoon",description:"Spend a few hours with local collections, contemporary art, and creative spaces in"},
+  {category:"Culture",name:"Architecture details",description:"Spot the facades, courtyards, and building styles that shape the streets of"},
+  {category:"Culture",name:"Local traditions",description:"Discover community events, craft traditions, and cultural spaces rooted in"},
+  {category:"Culture",name:"Independent bookshops",description:"Browse neighborhood bookshops and cultural corners at a slower pace in"},
+  {category:"Nature",name:"Garden escape",description:"Take a quiet break among planted paths and green pockets in and around"},
+  {category:"Nature",name:"Waterfront breather",description:"Follow a scenic waterside route and pause for views around"},
+  {category:"Nature",name:"Parkside picnic",description:"Slow down in a public green space and enjoy an easy outdoor pause in"},
+  {category:"Nature",name:"Sunset viewpoint",description:"Find an open vantage point and watch the light shift over"},
+  {category:"Nature",name:"Greenway wander",description:"Trade busy streets for leafy paths and a relaxed walk through"},
+  {category:"Landmarks",name:"Signature city view",description:"Take in a broad skyline view and get your bearings across"},
+  {category:"Landmarks",name:"Landmark loop",description:"Link well-known civic and historic sights in a walkable route through"},
+  {category:"Landmarks",name:"Old-town details",description:"Explore distinctive streetscapes, public squares, and recognizable local landmarks in"},
+  {category:"Landmarks",name:"Photo walk",description:"Build an easy route around standout facades, corners, and city scenes in"},
+  {category:"Landmarks",name:"Evening lights",description:"See how landmark buildings and public spaces take on a different feel after dark in"}
+];
+const unsplashPhotos={
+  "Food & drink":[
+    "photo-1517248135467-4c7edcad34c4",
+    "photo-1555396273-367ea4eb4db5",
+    "photo-1514933651103-005eec06c04b",
+    "photo-1552566626-52f8b828add9",
+    "photo-1547592180-85f173990554"
+  ],
+  Culture:[
+    "photo-1511818966892-d7d671e672a2",
+    "photo-1518998053901-5348d3961a04",
+    "photo-1531058020387-3be344556be6",
+    "photo-1552832230-c0197dd311b5",
+    "photo-1579783902614-a3fb3927b6a5"
+  ],
+  Nature:[
+    "photo-1500530855697-b586d89ba3ee",
+    "photo-1441974231531-c6227db76b6e",
+    "photo-1518837695005-2083093ee35b",
+    "photo-1470071459604-3b5ec3a7fe05",
+    "photo-1470770841072-f978cf4d019e"
+  ],
+  Landmarks:[
+    "photo-1477959858617-67f85cf4f1df",
+    "photo-1480714378408-67cf0d13bc1b",
+    "photo-1513635269975-59663e0ac1ad",
+    "photo-1524492412937-b28074a5d7da",
+    "photo-1533929736458-ca588d08c8be"
+  ]
+};
+
+function getUnsplashUrl(photoId){
+  return `https://images.unsplash.com/${photoId}?auto=format&fit=crop&w=900&q=82`;
+}
+
+function addPolaroidPhotos(cards){
+  const categoryIndexes=new Map();
+  return cards.map(card=>{
+    const photos=unsplashPhotos[card.category]||unsplashPhotos.Landmarks;
+    const index=categoryIndexes.get(card.category)||0;
+    categoryIndexes.set(card.category,index+1);
+    return {
+      ...card,
+      photoUrls:photos.map((photoId,offset)=>getUnsplashUrl(photos[(index+offset)%photos.length]))
+    };
+  });
+}
+
+function normalizePlaceName(value){
+  return value.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim();
+}
+
+const priorityCities=[
+  {name:"Athens",country:"Greece",latitude:37.9838,longitude:23.7275,aliases:["Athina"]},
+  {name:"Paris",country:"France",latitude:48.8566,longitude:2.3522},
+  {name:"Tbilisi",country:"Georgia",latitude:41.7151,longitude:44.8271},
+  {name:"London",country:"United Kingdom",latitude:51.5072,longitude:-0.1276,aliases:["London, England"]},
+  {name:"Rome",country:"Italy",latitude:41.9028,longitude:12.4964},
+  {name:"Tokyo",country:"Japan",latitude:35.6762,longitude:139.6503},
+  {name:"Kyoto",country:"Japan",latitude:35.0116,longitude:135.7681},
+  {name:"Beijing",country:"China",latitude:39.9042,longitude:116.4074},
+  {name:"Shanghai",country:"China",latitude:31.2304,longitude:121.4737},
+  {name:"New York City",country:"United States",latitude:40.7128,longitude:-74.006,aliases:["New York","NYC"]},
+  {name:"Washington, D.C.",country:"United States",latitude:38.9072,longitude:-77.0369,aliases:["Washington DC","Washington D.C."]},
+  {name:"Los Angeles",country:"United States",latitude:34.0522,longitude:-118.2437},
+  {name:"Mexico City",country:"Mexico",latitude:19.4326,longitude:-99.1332},
+  {name:"Toronto",country:"Canada",latitude:43.6532,longitude:-79.3832},
+  {name:"Buenos Aires",country:"Argentina",latitude:-34.6037,longitude:-58.3816},
+  {name:"São Paulo",country:"Brazil",latitude:-23.5505,longitude:-46.6333,aliases:["Sao Paulo"]},
+  {name:"Cairo",country:"Egypt",latitude:30.0444,longitude:31.2357},
+  {name:"Cape Town",country:"South Africa",latitude:-33.9249,longitude:18.4241},
+  {name:"Nairobi",country:"Kenya",latitude:-1.2921,longitude:36.8219},
+  {name:"Lagos",country:"Nigeria",latitude:6.5244,longitude:3.3792},
+  {name:"Istanbul",country:"Türkiye",latitude:41.0082,longitude:28.9784},
+  {name:"Dubai",country:"United Arab Emirates",latitude:25.2048,longitude:55.2708},
+  {name:"Bangkok",country:"Thailand",latitude:13.7563,longitude:100.5018},
+  {name:"Seoul",country:"South Korea",latitude:37.5665,longitude:126.978},
+  {name:"New Delhi",country:"India",latitude:28.6139,longitude:77.209,aliases:["Delhi"]},
+  {name:"Mumbai",country:"India",latitude:19.076,longitude:72.8777},
+  {name:"Sydney",country:"Australia",latitude:-33.8688,longitude:151.2093},
+  {name:"Auckland",country:"New Zealand",latitude:-36.8509,longitude:174.7645},
+  {name:"Lisbon",country:"Portugal",latitude:38.7223,longitude:-9.1393},
+  {name:"Madrid",country:"Spain",latitude:40.4168,longitude:-3.7038},
+  {name:"Berlin",country:"Germany",latitude:52.52,longitude:13.405},
+  {name:"Amsterdam",country:"Netherlands",latitude:52.3676,longitude:4.9041},
+  {name:"Reykjavík",country:"Iceland",latitude:64.1466,longitude:-21.9426,aliases:["Reykjavik"]},
+  {name:"Marrakech",country:"Morocco",latitude:31.6295,longitude:-7.9811},
+  {name:"Cusco",country:"Peru",latitude:-13.532,longitude:-71.9675}
+];
+const priorityCityIndex=new Map();
+for(const city of priorityCities){
+  for(const name of [city.name,...(city.aliases||[]),`${city.name}, ${city.country}`]){
+    priorityCityIndex.set(normalizePlaceName(name),city);
+  }
+}
+const priorityCountries=[
+  {name:"Georgia",capital:"Tbilisi",latitude:42.0,longitude:43.5,angularSpan:8,aliases:["Republic of Georgia","Georgia the country","Georgia country"]},
+  {name:"Greece",capital:"Athens",latitude:39.0,longitude:22.0,angularSpan:14},
+  {name:"France",capital:"Paris",latitude:46.5,longitude:2.5,angularSpan:14},
+  {name:"Japan",capital:"Tokyo",latitude:36.2,longitude:138.3,angularSpan:28},
+  {name:"United Kingdom",capital:"London",latitude:54.0,longitude:-2.5,angularSpan:12,aliases:["UK","Great Britain"]},
+  {name:"Italy",capital:"Rome",latitude:42.5,longitude:12.5,angularSpan:13},
+  {name:"China",capital:"Beijing",latitude:35.0,longitude:103.0,angularSpan:48},
+  {name:"United States",capital:"Washington, D.C.",latitude:39.0,longitude:-98.0,angularSpan:55,aliases:["USA","US","United States of America"]},
+  {name:"Canada",capital:"Ottawa",latitude:45.4215,longitude:-75.6972,angularSpan:55},
+  {name:"Australia",capital:"Canberra",latitude:-35.2809,longitude:149.1300,angularSpan:38},
+  {name:"New Zealand",capital:"Wellington",latitude:-41.2866,longitude:174.7756,angularSpan:18},
+  {name:"India",capital:"New Delhi",latitude:22.0,longitude:79.0,angularSpan:28},
+  {name:"Brazil",capital:"Brasília",latitude:-15.7939,longitude:-47.8828,angularSpan:32},
+  {name:"South Africa",capital:"Pretoria",latitude:-25.7479,longitude:28.2293,angularSpan:18},
+  {name:"Egypt",capital:"Cairo",latitude:26.0,longitude:30.0,angularSpan:15},
+  {name:"Argentina",capital:"Buenos Aires",latitude:-38.0,longitude:-64.0,angularSpan:30},
+  {name:"Mexico",capital:"Mexico City",latitude:23.0,longitude:-102.0,angularSpan:26},
+  {name:"Portugal",capital:"Lisbon",latitude:39.5,longitude:-8.0,angularSpan:9},
+  {name:"Spain",capital:"Madrid",latitude:40.0,longitude:-4.0,angularSpan:15},
+  {name:"Germany",capital:"Berlin",latitude:51.0,longitude:10.0,angularSpan:12},
+  {name:"Netherlands",capital:"Amsterdam",latitude:52.2,longitude:5.3,angularSpan:5},
+  {name:"Iceland",capital:"Reykjavík",latitude:65.0,longitude:-18.0,angularSpan:14},
+  {name:"Morocco",capital:"Rabat",latitude:34.0209,longitude:-6.8416,angularSpan:14},
+  {name:"Peru",capital:"Lima",latitude:-9.0,longitude:-75.0,angularSpan:22},
+  {name:"Türkiye",capital:"Ankara",latitude:39.9334,longitude:32.8597,angularSpan:18,aliases:["Turkey"]},
+  {name:"United Arab Emirates",capital:"Abu Dhabi",latitude:24.4539,longitude:54.3773,angularSpan:5,aliases:["UAE"]},
+  {name:"Thailand",capital:"Bangkok",latitude:15.0,longitude:101.0,angularSpan:14},
+  {name:"South Korea",capital:"Seoul",latitude:36.5,longitude:127.8,angularSpan:7},
+  {name:"Kenya",capital:"Nairobi",latitude:0.0,longitude:37.9,angularSpan:13},
+  {name:"Nigeria",capital:"Abuja",latitude:9.0765,longitude:7.3986,angularSpan:16}
+];
+const priorityCountryIndex=new Map();
+for(const country of priorityCountries){
+  for(const name of [country.name,...(country.aliases||[])]){
+    priorityCountryIndex.set(normalizePlaceName(name),country);
+  }
+}
+
+function findCountry(name){
+  if(!countryFeatures)return null;
+  const query=normalizePlaceName(name);
+  const countries=countryFeatures.filter(feature=>feature.geometry);
+  const names=feature=>[feature.properties?.ADMIN,feature.properties?.NAME,feature.properties?.NAME_LONG,feature.properties?.NAME_EN,feature.properties?.FORMAL_EN,feature.properties?.ISO_A2,feature.properties?.ISO_A3].filter(Boolean).map(normalizePlaceName);
+  return countries.find(feature=>names(feature).includes(query))||null;
+}
+
+function getCountryFocus(feature){
+  let minLatitude=90,maxLatitude=-90;
+  const longitudes=[];
+  function collectCoordinates(coordinates){
+    if(!Array.isArray(coordinates))return;
+    if(typeof coordinates[0]==="number"&&typeof coordinates[1]==="number"){
+      longitudes.push((coordinates[0]+360)%360);
+      minLatitude=Math.min(minLatitude,coordinates[1]);
+      maxLatitude=Math.max(maxLatitude,coordinates[1]);
+      return;
+    }
+    coordinates.forEach(collectCoordinates);
+  }
+  collectCoordinates(feature.geometry.coordinates);
+  if(!longitudes.length)return null;
+  longitudes.sort((a,b)=>a-b);
+  let largestGap=-1,startLongitude=longitudes[0],longitudeSpan=360;
+  for(let i=0;i<longitudes.length;i++){
+    const current=longitudes[i];
+    const next=i===longitudes.length-1?longitudes[0]+360:longitudes[i+1];
+    if(next-current>largestGap){
+      largestGap=next-current;
+      startLongitude=next%360;
+      longitudeSpan=360-largestGap;
+    }
+  }
+  const longitude=((startLongitude+longitudeSpan/2+180)%360)-180;
+  const latitude=(minLatitude+maxLatitude)/2;
+  const longitudeExtent=longitudeSpan*Math.max(.15,Math.cos(THREE.MathUtils.degToRad(latitude)));
+  return {latitude,longitude,angularSpan:Math.max(maxLatitude-minLatitude,longitudeExtent)};
+}
+
+function flyToCoordinates(latitude,longitude,angularSpan=0){
+  const radians=THREE.MathUtils.degToRad;
+  const latitudeRadians=radians(latitude),longitudeRadians=radians(longitude);
+  const destination=new THREE.Vector3(
+    Math.cos(latitudeRadians)*Math.cos(longitudeRadians),
+    Math.sin(latitudeRadians),
+    -Math.cos(latitudeRadians)*Math.sin(longitudeRadians)
+  ).applyAxisAngle(new THREE.Vector3(0,1,0),earth.rotation.y).normalize();
+  const verticalFov=radians(camera.fov);
+  const horizontalFov=2*Math.atan(Math.tan(verticalFov/2)*camera.aspect);
+  const targetHalfFov=Math.min(verticalFov,horizontalFov)*.5*.72;
+  const angularHalfSpan=Math.min(radians(angularSpan)/2,Math.PI/2-.01);
+  const distance=angularSpan>0
+    ?THREE.MathUtils.clamp(1+Math.sin(angularHalfSpan)/Math.tan(targetHalfFov),1.15,3.25)
+    :1.5;
+  const startDirection=camera.position.clone().normalize();
+  const startDistance=camera.position.length();
+  const flight=++cameraFlight;
+  const startedAt=performance.now();
+  cameraFlightActive=true;
+  controls.autoRotate=false;
+  function animateFlight(now){
+    if(flight!==cameraFlight)return;
+    const progress=Math.min((now-startedAt)/1450,1);
+    const eased=1-Math.pow(1-progress,4);
+    const direction=startDirection.clone().slerp(destination,eased).normalize();
+    const zoomDistance=THREE.MathUtils.lerp(startDistance,distance,eased);
+    camera.position.copy(direction.multiplyScalar(zoomDistance));
+    camera.lookAt(0,0,0);
+    if(progress<1){
+      requestAnimationFrame(animateFlight);
+      return;
+    }
+    cameraFlightActive=false;
+    controls.autoRotate=true;
+    controls.update();
+    updateCountryHover();
+  }
+  requestAnimationFrame(animateFlight);
+}
+
+controls.addEventListener("start",()=>{
+  locationRequest++;
+  if(cameraFlightActive){
+    cameraFlight++;
+    cameraFlightActive=false;
+  }
+  controls.autoRotate=true;
+});
+
+const overpassEndpoint="https://overpass-api.de/api/interpreter";
+
+function getRecommendationCategory(tags){
+  if(/^(restaurant|cafe|fast_food|bar|pub|food_court|ice_cream)$/.test(tags.amenity||"")
+    ||(tags.amenity==="marketplace"&&tags.marketplace==="food")
+    ||/^(bakery|confectionery|coffee|deli|pastry|cheese|chocolate|beverages)$/.test(tags.shop||""))return "Food & drink";
+  if(/^(museum|gallery)$/.test(tags.tourism||"")
+    ||Boolean(tags.historic)
+    ||/^(theatre|cinema|arts_centre|library|place_of_worship)$/.test(tags.amenity||"")
+    ||(tags.tourism==="attraction"&&tags.man_made==="tower"))return "Culture";
+  if(/^(park|garden|nature_reserve)$/.test(tags.leisure||"")
+    ||/^(beach|waterfall|wood|peak)$/.test(tags.natural||"")
+    ||tags.landuse==="forest")return "Nature";
+  if(/^(attraction|viewpoint)$/.test(tags.tourism||"")
+    ||/^(tower|bridge)$/.test(tags.man_made||""))return "Landmarks";
+  return null;
+}
+
+function buildRecommendationQuery(destination,radius){
+  const {latitude,longitude}=destination;
+  const around=`(around:${radius},${latitude},${longitude})`;
+  return `[out:json][timeout:25];(
+    nwr${around}[amenity~"^(restaurant|cafe|fast_food|bar|pub|food_court|ice_cream)$"];
+    nwr${around}[amenity=marketplace][marketplace=food];
+    nwr${around}[shop~"^(bakery|confectionery|coffee|deli|pastry|cheese|chocolate|beverages)$"];
+  );out center tags 80;(
+    nwr${around}[tourism~"^(museum|gallery)$"];
+    nwr${around}[historic];
+    nwr${around}[amenity~"^(theatre|cinema|arts_centre|library|place_of_worship)$"];
+  );out center tags 80;(
+    nwr${around}[leisure~"^(park|garden|nature_reserve)$"];
+    nwr${around}[natural~"^(beach|waterfall|wood|peak)$"];
+    nwr${around}[landuse=forest];
+  );out center tags 80;(
+    nwr${around}[tourism~"^(attraction|viewpoint)$"];
+    nwr${around}[man_made~"^(tower|bridge)$"];
+  );out center tags 80;`;
+}
+
+function getRecommendationDescription(tags,category){
+  if(tags.description)return tags.description.slice(0,240);
+  const feature=tags.amenity||tags.shop||tags.tourism||tags.historic||tags.leisure||tags.natural||tags.man_made||tags.landuse;
+  const labels={
+    restaurant:"Restaurant",
+    cafe:"Café",
+    fast_food:"Quick-service food",
+    bar:"Bar",
+    pub:"Pub",
+    food_court:"Food court",
+    ice_cream:"Ice cream",
+    marketplace:"Market",
+    bakery:"Bakery",
+    confectionery:"Confectionery",
+    coffee:"Coffee shop",
+    deli:"Deli",
+    pastry:"Pastry shop",
+    cheese:"Cheese shop",
+    chocolate:"Chocolate shop",
+    beverages:"Drinks shop",
+    museum:"Museum",
+    gallery:"Gallery",
+    theatre:"Theatre",
+    cinema:"Cinema",
+    arts_centre:"Arts centre",
+    library:"Library",
+    place_of_worship:"Place of worship",
+    park:"Park",
+    garden:"Garden",
+    nature_reserve:"Nature reserve",
+    beach:"Beach",
+    waterfall:"Waterfall",
+    wood:"Woodland",
+    peak:"Mountain peak",
+    forest:"Forest",
+    attraction:"Attraction",
+    viewpoint:"Viewpoint",
+    tower:"Tower",
+    bridge:"Bridge"
+  };
+  if(tags.historic)return `${tags.historic.replaceAll("_"," ")} · cultural heritage`;
+  return labels[feature]||category;
+}
+
+function getRecommendationCoordinates(element){
+  const latitude=element.lat??element.center?.lat;
+  const longitude=element.lon??element.center?.lon;
+  if(!Number.isFinite(latitude)||!Number.isFinite(longitude))return null;
+  return {latitude,longitude};
+}
+
+function distanceBetween(first,second){
+  const radians=value=>value*Math.PI/180;
+  const latitudeDelta=radians(second.latitude-first.latitude);
+  const longitudeDelta=radians(second.longitude-first.longitude);
+  const a=Math.sin(latitudeDelta/2)**2
+    +Math.cos(radians(first.latitude))*Math.cos(radians(second.latitude))*Math.sin(longitudeDelta/2)**2;
+  return 6371000*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+}
+
+function createPlaceRecommendations(elements,destination){
+  const seenElements=new Set();
+  const seenNearbyNames=new Map();
+  return elements
+    .map(element=>{
+      const tags=element.tags||{};
+      const coordinates=getRecommendationCoordinates(element);
+      const name=tags.name||tags["name:en"];
+      const category=getRecommendationCategory(tags);
+      if(!coordinates||!name||!category)return null;
+      const id=`${element.type}/${element.id}`;
+      const distance=distanceBetween(destination,coordinates);
+      return {
+        id,
+        placeId:{type:element.type,id:String(element.id)},
+        name,
+        description:getRecommendationDescription(tags,category)||`${category} highlight near ${destination.name}.`,
+        category,
+        location:coordinates,
+        distance,
+        tags
+      };
+    })
+    .filter(card=>{
+      if(!card||seenElements.has(card.id))return false;
+      seenElements.add(card.id);
+      const key=normalizePlaceName(card.name);
+      const previous=seenNearbyNames.get(key);
+      if(previous&&previous.some(item=>distanceBetween(item.location,card.location)<50))return false;
+      if(!previous)seenNearbyNames.set(key,[]);
+      seenNearbyNames.get(key).push(card);
+      return true;
+    })
+    .sort((first,second)=>first.distance-second.distance||first.name.localeCompare(second.name));
+}
+
+function createDestinationDeck(destination,recommendations=[]){
+  const liveByCategory=new Map(recommendationCategories.map(category=>[
+    category,
+    recommendations.filter(card=>card.category===category).slice(0,5)
+  ]));
+  const fallbackByCategory=new Map(recommendationCategories.map(category=>[
+    category,
+    destinationExperienceTemplates.filter(template=>template.category===category)
+  ]));
+  const cards=[];
+  for(const category of recommendationCategories){
+    const liveCards=liveByCategory.get(category);
+    for(const card of liveCards){
+      cards.push({...card,description:card.description.trim()||`${category} highlight near ${destination.name}.`});
+    }
+    const fallbackCards=fallbackByCategory.get(category);
+    for(const template of fallbackCards.slice(0,5-liveCards.length)){
+      cards.push({
+        id:`${normalizePlaceName(destination.name)}-${normalizePlaceName(template.name)}`,
+        name:`${template.name} · ${destination.name}`,
+        description:`${template.description} ${destination.name}.`,
+        category,
+        location:{latitude:destination.latitude,longitude:destination.longitude},
+        placeId:null
+      });
+    }
+  }
+  return addPolaroidPhotos(cards);
+}
+
+function getFilteredRecommendations(){
+  return selectedCategory==="All"
+    ?allRecommendations
+    :allRecommendations.filter(card=>card.category===selectedCategory);
+}
+
+async function loadDestinationRecommendations(destination){
+  const request=++recommendationRequest;
+  const radius=Number(document.getElementById("discovery-radius").value);
+  allRecommendations=createDestinationDeck(destination);
+  currentFlashcards=getFilteredRecommendations();
+  flashcardIndex=0;
+  recommendationsLoading=true;
+  recommendationsError="";
+  flashcardGeneration++;
+  renderFlashcard();
+  document.getElementById("discovery-status").textContent=`Finding local places within ${radius/1000} km · curated picks are ready`;
+  try{
+    const response=await fetch(overpassEndpoint,{
+      method:"POST",
+      headers:{"Content-Type":"application/x-www-form-urlencoded;charset=UTF-8"},
+      body:new URLSearchParams({data:buildRecommendationQuery(destination,radius)})
+    });
+    if(!response.ok)throw new Error(`OpenStreetMap place search failed: ${response.status}`);
+    const data=await response.json();
+    if(request!==recommendationRequest||selectedDestination!==destination)return;
+    allRecommendations=createDestinationDeck(destination,createPlaceRecommendations(Array.isArray(data.elements)?data.elements:[],destination));
+    recommendationsLoading=false;
+    currentFlashcards=getFilteredRecommendations();
+    renderFlashcard();
+    const count=currentFlashcards.length;
+    document.getElementById("discovery-status").textContent=count
+      ?`${count} ${selectedCategory==="All"?"destination":selectedCategory} picks · local places and curated ideas`
+      :"Curated destination picks are ready";
+  }catch(error){
+    if(request!==recommendationRequest||selectedDestination!==destination)return;
+    recommendationsLoading=false;
+    recommendationsError="Live place lookup is unavailable; showing curated destination picks instead.";
+    console.error("Unable to load place recommendations:",error);
+    renderFlashcard();
+    document.getElementById("discovery-status").textContent=recommendationsError;
+  }
+}
+
+function getInlinePhotoFallback(card){
+  const label=card.category.replaceAll("&","and");
+  const title=card.name.replace(/[<>&"]/g,"").slice(0,44);
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 760"><defs><linearGradient id="g" x2="1" y2="1"><stop stop-color="#294750"/><stop offset="1" stop-color="#b77c50"/></linearGradient></defs><rect width="900" height="760" fill="url(#g)"/><circle cx="720" cy="170" r="120" fill="#e9c88b" fill-opacity=".72"/><path d="M0 600 230 360l190 210 140-170 340 350H0z" fill="#17292f" fill-opacity=".75"/><text x="54" y="650" fill="white" font-family="sans-serif" font-size="24">${label}</text><text x="54" y="700" fill="white" font-family="sans-serif" font-size="32">${title}</text></svg>`;
+  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+}
+
+function getSavedCards(destination){
+  const key=normalizePlaceName(destination.name);
+  if(!savedFlashcards.has(key))savedFlashcards.set(key,{liked:[],passed:[]});
+  return savedFlashcards.get(key);
+}
+
+function renderSavedCards(){
+  const saved=getSavedCards(selectedDestination);
+  const renderList=(id,items)=>{
+    const list=document.getElementById(id);
+    list.replaceChildren();
+    if(!items.length){
+      const empty=document.createElement("span");
+      empty.className="saved-none";
+      empty.textContent="Nothing saved yet.";
+      list.append(empty);
+      return;
+    }
+    for(const card of items){
+      const item=document.createElement("span");
+      item.className="saved-place";
+      item.textContent=card.name;
+      list.append(item);
+    }
+  };
+  renderList("liked-places",saved.liked);
+  renderList("disliked-places",saved.passed);
+  document.getElementById("liked-count").textContent=String(saved.liked.length);
+  document.getElementById("disliked-count").textContent=String(saved.passed.length);
+  document.getElementById("saved-city-name").textContent=selectedDestination.name;
+  document.getElementById("wishlist-shortcut").textContent=`Wishlist ${saved.liked.length}`;
+}
+
+function renderFlashcard(){
+  const slot=document.getElementById("polaroid-slot");
+  slot.replaceChildren();
+  const progress=document.getElementById("flashcard-progress");
+  if(!currentFlashcards.length&&selectedDestination){
+    allRecommendations=createDestinationDeck(selectedDestination);
+    currentFlashcards=getFilteredRecommendations();
+    flashcardIndex=0;
+  }
+  if(!currentFlashcards.length){
+    progress.textContent="";
+    return;
+  }
+  if(flashcardIndex>=currentFlashcards.length)flashcardIndex=0;
+  const card=currentFlashcards[flashcardIndex];
+  const article=document.createElement("article");
+  article.className="polaroid";
+  article.setAttribute("aria-label",`${card.category}: ${card.name}`);
+  const image=document.createElement("div");
+  image.className="polaroid-image";
+  const imageCaption=document.createElement("div");
+  imageCaption.className="polaroid-photo-empty";
+  imageCaption.classList.add("is-loading");
+  imageCaption.textContent=`${card.category} · ${selectedDestination.name}`;
+  const photo=document.createElement("img");
+  photo.alt=`${card.name}`;
+  photo.loading="eager";
+  photo.decoding="async";
+  let photoIndex=0;
+  let usingInlineFallback=false;
+  photo.addEventListener("load",()=>{
+    imageCaption.hidden=true;
+    imageCaption.classList.remove("is-loading");
+  });
+  photo.addEventListener("error",()=>{
+    if(usingInlineFallback){
+      photo.hidden=true;
+      imageCaption.hidden=false;
+      imageCaption.classList.remove("is-loading");
+      imageCaption.classList.add("image-fallback-placeholder");
+      imageCaption.textContent=`${card.category} · ${card.name}`;
+      return;
+    }
+    if(photoIndex<card.photoUrls.length-1){
+      photoIndex++;
+      photo.src=card.photoUrls[photoIndex];
+      return;
+    }
+    console.warn("Unsplash photos failed; using the built-in Polaroid fallback:",card.name);
+    usingInlineFallback=true;
+    photo.src=getInlinePhotoFallback(card);
+  });
+  image.append(imageCaption,photo);
+  photo.src=card.photoUrls[photoIndex];
+  const copy=document.createElement("div");
+  copy.className="polaroid-copy";
+  const category=document.createElement("div");
+  category.className="place-category";
+  category.textContent=card.category;
+  const title=document.createElement("h3");
+  title.className="place-name";
+  title.textContent=card.name;
+  const description=document.createElement("p");
+  description.className="place-note";
+  description.textContent=card.description;
+  copy.append(category,title,description);
+  const mapLink=document.createElement("a");
+  mapLink.className="card-map-link";
+  mapLink.target="_blank";
+  mapLink.rel="noopener noreferrer";
+  mapLink.href=card.placeId
+    ?`https://www.openstreetmap.org/${encodeURIComponent(card.placeId.type)}/${encodeURIComponent(card.placeId.id)}`
+    :`https://www.openstreetmap.org/?mlat=${card.location.latitude}&mlon=${card.location.longitude}#map=14/${card.location.latitude}/${card.location.longitude}`;
+  mapLink.textContent=card.placeId?"View place on map ↗":"Explore this area ↗";
+  copy.append(mapLink);
+  const actions=document.createElement("div");
+  actions.className="place-actions";
+  for(const [decision,label,icon] of [["passed","Pass","×"],["liked","Save","♥"]]){
+    const button=document.createElement("button");
+    button.className="place-action";
+    button.type="button";
+    button.dataset.decision=decision;
+    button.setAttribute("aria-label",`${label} ${card.name}`);
+    button.textContent=icon;
+    actions.append(button);
+  }
+  article.append(image,copy,actions);
+  slot.append(article);
+  progress.textContent=`${flashcardIndex+1} of ${currentFlashcards.length}`;
+}
+
+function showPlace(destination){
+  document.body.classList.add("search-open");
+  document.getElementById("panel-kicker").textContent=destination.kind==="country"?"Country guide":"Destination guide";
+  document.getElementById("panel-title").textContent=destination.name;
+  document.getElementById("panel-subtitle").textContent=destination.kind==="country"
+    ?`Explore ${destination.name}${destination.capital?` and its capital, ${destination.capital}`:""} on the globe.`
+    :`Explore ${destination.name}${destination.country?`, ${destination.country}`:""} on the globe.`;
+  document.getElementById("discovery-progress-label").textContent="Swipe or save a place";
+  document.getElementById("city-places").hidden=false;
+  document.getElementById("places-city").textContent=destination.kind==="country"?destination.name.toUpperCase():destination.name.toUpperCase();
+  document.getElementById("location-details").hidden=false;
+  document.getElementById("location-details").replaceChildren();
+  const rows=[
+    ["Destination",destination.name],
+    [destination.kind==="country"?"Capital":"Country",destination.kind==="country"?(destination.capital||"—"):(destination.country||"—")],
+    ["Coordinates",`${destination.latitude.toFixed(3)}, ${destination.longitude.toFixed(3)}`]
+  ];
+  for(const [label,value] of rows){
+    const row=document.createElement("div");
+    row.className="detail-row";
+    const key=document.createElement("span");
+    key.className="detail-label";
+    key.textContent=label;
+    const detail=document.createElement("span");
+    detail.className="detail-value";
+    detail.textContent=value;
+    row.append(key,detail);
+    document.getElementById("location-details").append(row);
+  }
+  loadDestinationRecommendations(destination);
+  renderSavedCards();
+}
+
+async function selectDestination(destinationData){
+  const request=++locationRequest;
+  if(cameraFlightActive){
+    cameraFlight++;
+    cameraFlightActive=false;
+  }
+  cameraFlight++;
+  flashcardGeneration++;
+  controls.autoRotate=true;
+  controls.enabled=true;
+  const inputName=typeof destinationData==="string"?destinationData.trim():String(destinationData?.name||"").trim();
+  if(!inputName)return;
+  const query=normalizePlaceName(inputName);
+  const priorityCity=priorityCityIndex.get(query);
+  const priorityCountry=priorityCountryIndex.get(query);
+  let destination=typeof destinationData==="object"&&destinationData?{...destinationData}:{name:inputName};
+  if(priorityCity){
+    destination={...priorityCity,kind:"city",displayName:`${priorityCity.name}, ${priorityCity.country}`};
+  }else if(priorityCountry){
+    const countryFeature=findCountry(priorityCountry.name);
+    const focus=countryFeature&&getCountryFocus(countryFeature);
+    destination={
+      ...priorityCountry,
+      ...(focus||{}),
+      kind:"country",
+      name:priorityCountry.name,
+      displayName:priorityCountry.name
+    };
+  }else if(!Number.isFinite(destination.latitude)||!Number.isFinite(destination.longitude)){
+    try{
+      await countryDataPromise;
+      if(request!==locationRequest)return;
+      const country=findCountry(inputName);
+      if(country){
+        const focus=getCountryFocus(country);
+        const countryName=country.properties?.ADMIN||country.properties?.NAME||inputName;
+        const countryPriority=priorityCountryIndex.get(normalizePlaceName(countryName));
+        destination={
+          ...(countryPriority||{}),
+          ...(focus||{}),
+          kind:"country",
+          name:countryName,
+          latitude:focus?.latitude??countryPriority?.latitude,
+          longitude:focus?.longitude??countryPriority?.longitude,
+          angularSpan:focus?.angularSpan??countryPriority?.angularSpan??0
+        };
+      }else{
+        const response=await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(inputName)}&count=10&language=en&format=json`);
+        if(!response.ok)throw new Error(`Location search failed: ${response.status}`);
+        const data=await response.json();
+        if(request!==locationRequest)return;
+        const results=Array.isArray(data.results)?data.results:[];
+        const exact=results.filter(item=>normalizePlaceName(item.name)===query);
+        const pool=exact.length?exact:results;
+        const result=pool.sort((a,b)=>{
+          const rank=item=>item.feature_code==="PPLC"?0:item.feature_code==="PPLA"?1:item.feature_code?.startsWith("PPL")?2:3;
+          return rank(a)-rank(b)||(b.population||0)-(a.population||0);
+        })[0];
+        if(!result)throw new Error(`No map coordinates found for "${inputName}"`);
+        destination={
+          ...destination,
+          kind:"city",
+          name:result.name,
+          country:result.country,
+          latitude:result.latitude,
+          longitude:result.longitude
+        };
+      }
+    }catch(error){
+      if(request!==locationRequest)return;
+      console.error("Unable to resolve the selected destination:",error);
+      document.getElementById("panel-subtitle").textContent=`Unable to locate "${inputName}" on the map.`;
+      document.getElementById("discovery-status").textContent=`Location unavailable · ${inputName}`;
+      return;
+    }
+  }
+  if(request!==locationRequest)return;
+  if(!Number.isFinite(destination.latitude)||!Number.isFinite(destination.longitude)){
+    console.error("Selected destination has invalid coordinates:",destination);
+    document.getElementById("discovery-status").textContent="This selection has no valid map coordinates.";
+    return;
+  }
+  selectedDestination={
+    ...destination,
+    name:destination.name||inputName,
+    kind:destination.kind||"city",
+    country:destination.country||"",
+    latitude:Number(destination.latitude),
+    longitude:Number(destination.longitude)
+  };
+  input.value=selectedDestination.displayName||selectedDestination.name;
+  showPlace(selectedDestination);
+  flyToCoordinates(selectedDestination.latitude,selectedDestination.longitude,selectedDestination.angularSpan||0);
+  document.getElementById("destination-suggestions").hidden=true;
+}
+
+function getSearchSuggestions(value){
+  const query=normalizePlaceName(value);
+  if(!query)return [];
+  const exactCountry=priorityCountryIndex.get(query);
+  if(exactCountry)return [{...exactCountry,kind:"country"}];
+  const cities=priorityCities.filter(city=>[city.name,city.country,`${city.name}, ${city.country}`,...(city.aliases||[])].some(label=>normalizePlaceName(label).includes(query)))
+    .map(city=>({...city,kind:"city",displayName:`${city.name}, ${city.country}`}));
+  const countries=priorityCountries.filter(country=>[country.name,...(country.aliases||[])].some(label=>normalizePlaceName(label).includes(query)))
+    .map(country=>({...country,kind:"country"}));
+  if(countryFeatures){
+    for(const feature of countryFeatures){
+      if(!feature.geometry)continue;
+      const name=feature.properties?.ADMIN||feature.properties?.NAME;
+      if(!name||!normalizePlaceName(name).includes(query))continue;
+      if(countries.some(country=>normalizePlaceName(country.name)===normalizePlaceName(name)))continue;
+      countries.push({name,kind:"country",...getCountryFocus(feature)});
+    }
+  }
+  return [...countries,...cities].slice(0,8);
+}
+
+const suggestions=document.getElementById("destination-suggestions");
+function renderSearchSuggestions(){
+  const matches=getSearchSuggestions(input.value);
+  suggestions.replaceChildren();
+  for(const destination of matches){
+    const option=document.createElement("button");
+    option.type="button";
+    option.className="search-suggestion";
+    option.setAttribute("role","option");
+    const title=document.createElement("span");
+    title.textContent=destination.kind==="country"?destination.name:`${destination.name}, ${destination.country}`;
+    const detail=document.createElement("small");
+    detail.textContent=destination.kind==="country"?"Country":`Major city · ${destination.country}`;
+    option.append(title,detail);
+    option.addEventListener("click",()=>selectDestination(destination));
+    suggestions.append(option);
+  }
+  suggestions.hidden=!matches.length;
+}
+
+const cityMarkerLayer=document.getElementById("city-label-layer");
+const cityMarkers=new Map();
+for(const city of priorityCities){
+  const marker=document.createElement("button");
+  marker.type="button";
+  marker.className="city-label";
+  marker.textContent=city.name;
+  marker.title=`Explore ${city.name}, ${city.country}`;
+  marker.addEventListener("click",()=>selectDestination({...city,kind:"city"}));
+  cityMarkerLayer.append(marker);
+  cityMarkers.set(city.name,marker);
+}
+
+function updateCityMarkers(){
+  const viewportRect=renderer.domElement.getBoundingClientRect();
+  const cameraDirection=camera.position.clone().normalize();
+  const visible=[];
+  for(const city of priorityCities){
+    const marker=cityMarkers.get(city.name);
+    const latitude=THREE.MathUtils.degToRad(city.latitude);
+    const longitude=THREE.MathUtils.degToRad(city.longitude);
+    const position=new THREE.Vector3(Math.cos(latitude)*Math.cos(longitude),Math.sin(latitude),-Math.cos(latitude)*Math.sin(longitude))
+      .applyAxisAngle(new THREE.Vector3(0,1,0),earth.rotation.y);
+    if(position.dot(cameraDirection)<=.02){marker.style.visibility="hidden";continue;}
+    const projected=position.project(camera);
+    if(projected.z< -1||projected.z>1||Math.abs(projected.x)>1||Math.abs(projected.y)>1){marker.style.visibility="hidden";continue;}
+    const x=(projected.x+1)*viewportRect.width/2;
+    const y=(1-projected.y)*viewportRect.height/2;
+    visible.push({marker,x,y,distance:Math.hypot(x-viewportRect.width/2,y-viewportRect.height/2)});
+  }
+  visible.sort((a,b)=>a.distance-b.distance);
+  const placed=[];
+  for(const item of visible){
+    if(placed.length>=7||placed.some(other=>Math.hypot(item.x-other.x,item.y-other.y)<80)){
+      item.marker.style.visibility="hidden";
+      continue;
+    }
+    item.marker.style.left=`${item.x}px`;
+    item.marker.style.top=`${item.y}px`;
+    item.marker.style.transform="translate(-50%, -50%)";
+    item.marker.style.visibility="visible";
+    placed.push(item);
+  }
+}
+
+form.addEventListener("submit",event=>{
+  event.preventDefault();
+  const value=input.value.trim();
+  if(value)selectDestination(value);
+});
+input.addEventListener("input",renderSearchSuggestions);
+input.addEventListener("focus",renderSearchSuggestions);
+input.addEventListener("keydown",event=>{
+  if(event.key==="Escape")suggestions.hidden=true;
+  if(event.key==="ArrowDown"&&!suggestions.hidden){
+    event.preventDefault();
+    suggestions.querySelector("button")?.focus();
+  }
+});
+document.addEventListener("pointerdown",event=>{
+  if(!form.contains(event.target))suggestions.hidden=true;
+});
+random.addEventListener("click",()=>{
+  const [name]=presets[Math.floor(Math.random()*presets.length)];
+  selectDestination(name);
+});
+const polaroidSlot=document.getElementById("polaroid-slot");
+let flashcardGeneration=0;
+function decideCurrentFlashcard(decision,cardElement){
+  if(!selectedDestination||flashcardIndex>=currentFlashcards.length)return;
+  const generation=flashcardGeneration;
+  const card=currentFlashcards[flashcardIndex];
+  cardElement.classList.add(decision==="liked"?"swipe-liked":"swipe-disliked");
+  setTimeout(()=>{
+    if(generation!==flashcardGeneration||currentFlashcards[flashcardIndex]!==card)return;
+    const saved=getSavedCards(selectedDestination);
+    const list=decision==="liked"?saved.liked:saved.passed;
+    if(!list.some(item=>item.name===card.name))list.push(card);
+    flashcardIndex++;
+    renderFlashcard();
+    renderSavedCards();
+  },230);
+}
+polaroidSlot.addEventListener("click",event=>{
+  const button=event.target.closest("[data-decision]");
+  const card=event.target.closest(".polaroid");
+  if(button&&card)decideCurrentFlashcard(button.dataset.decision,card);
+});
+polaroidSlot.addEventListener("pointerdown",event=>{
+  if(event.target.closest("button,a")||!event.target.closest(".polaroid"))return;
+  polaroidSlot.setPointerCapture(event.pointerId);
+  flashcardDragStart={x:event.clientX,y:event.clientY};
+  event.target.closest(".polaroid").classList.add("is-dragging");
+});
+polaroidSlot.addEventListener("pointermove",event=>{
+  if(!flashcardDragStart)return;
+  const card=polaroidSlot.querySelector(".polaroid");
+  if(card)card.style.transform=`translateX(${event.clientX-flashcardDragStart.x}px) rotate(${(event.clientX-flashcardDragStart.x)*.04}deg)`;
+});
+polaroidSlot.addEventListener("pointerup",event=>{
+  if(!flashcardDragStart)return;
+  const delta=event.clientX-flashcardDragStart.x;
+  flashcardDragStart=null;
+  const card=polaroidSlot.querySelector(".polaroid");
+  if(!card)return;
+  card.classList.remove("is-dragging");
+  if(Math.abs(delta)>90){
+    card.style.transform="";
+    decideCurrentFlashcard(delta>0?"liked":"passed",card);
+  }else{
+    card.style.transform="";
+  }
+});
+polaroidSlot.addEventListener("pointercancel",()=>{
+  flashcardDragStart=null;
+  const card=polaroidSlot.querySelector(".polaroid");
+  if(card){card.classList.remove("is-dragging");card.style.transform="";}
+});
+const filters=document.getElementById("category-filters");
+for(const category of ["All",...recommendationCategories]){
+  const button=document.createElement("button");
+  button.type="button";
+  button.className="category-filter";
+  button.textContent=category;
+  button.setAttribute("aria-pressed",String(category===selectedCategory));
+  button.addEventListener("click",()=>{
+    selectedCategory=category;
+    filters.querySelectorAll("button").forEach(item=>item.setAttribute("aria-pressed",String(item===button)));
+    flashcardGeneration++;
+    flashcardIndex=0;
+    currentFlashcards=getFilteredRecommendations();
+    renderFlashcard();
+    if(!recommendationsLoading&&!recommendationsError){
+      document.getElementById("discovery-status").textContent=currentFlashcards.length
+        ?`${currentFlashcards.length} ${category==="All"?"nearby":category} places · OpenStreetMap`
+        :`No ${category==="All"?"named places":category+" places"} found nearby.`;
+    }
+  });
+  filters.append(button);
+}
+document.getElementById("discovery-radius").addEventListener("change",()=>{
+  if(selectedDestination)loadDestinationRecommendations(selectedDestination);
+});
+document.getElementById("restart-discovery").disabled=false;document.getElementById("restart-discovery").addEventListener("click",()=>{
+  if(!selectedDestination)return;
+  if(recommendationsError){
+    loadDestinationRecommendations(selectedDestination);
+    return;
+  }
+  flashcardGeneration++;
+  flashcardIndex=0;
+  currentFlashcards=getFilteredRecommendations();
+  renderFlashcard();
+  document.getElementById("discovery-status").textContent=`Discovery restarted · ${selectedCategory==="All"?"all categories":selectedCategory}`;
+});
 function resize(){const w=viewport.clientWidth,h=viewport.clientHeight;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h);}new ResizeObserver(resize).observe(viewport);addEventListener("resize",resize);
-function animate(){requestAnimationFrame(animate);if(!controls.enabled)return;earth.rotation.y+=.00045;controls.update();renderer.render(scene,camera);}animate();
+function animate(){requestAnimationFrame(animate);controls.update();camera.updateMatrixWorld();updateCityMarkers();renderer.render(scene,camera);}animate();
 </script>
   </body>
 </html>
