@@ -130,18 +130,31 @@
       body.auth-locked #app-shell { visibility: hidden; pointer-events: none; }
       .auth-screen { position: fixed; inset: 0; z-index: 100; display: grid; overflow: auto; padding: 28px 16px; place-items: center; background: radial-gradient(ellipse at 18% 18%, rgba(35,83,91,.46), transparent 42%), radial-gradient(ellipse at 85% 78%, rgba(91,58,47,.34), transparent 38%), rgba(5,9,14,.88); backdrop-filter: blur(12px); }
       .auth-screen[hidden] { display: none; }
-      .auth-card { width: min(100%, 430px); padding: 30px; border: 1px solid rgba(192,214,224,.18); border-radius: 12px; background: rgba(12,20,28,.96); box-shadow: 0 28px 100px rgba(0,0,0,.52); }
+      .auth-card { width: min(100%, 480px); padding: 30px; border: 1px solid rgba(192,214,224,.2); border-radius: 18px; background: linear-gradient(145deg,rgba(19,31,42,.9),rgba(9,16,24,.94)); box-shadow: 0 28px 100px rgba(0,0,0,.52), 0 0 55px rgba(96,190,185,.08); backdrop-filter: blur(24px); }
       .auth-brand { margin: 0 0 6px; color: var(--accent); font: 10px ui-monospace, monospace; letter-spacing: .16em; text-transform: uppercase; }
-      .auth-title { margin: 0; font-size: clamp(26px, 7vw, 34px); font-weight: 550; letter-spacing: -.03em; }
-      .auth-intro { margin: 8px 0 22px; color: #b6c3cb; font-size: 13px; line-height: 1.5; }
-      .auth-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-bottom: 20px; padding: 4px; border: 1px solid var(--line); border-radius: 5px; background: rgba(255,255,255,.025); }
-      .auth-tab { padding: 9px; border: 0; border-radius: 3px; background: transparent; color: var(--muted); font: 550 12px system-ui, sans-serif; cursor: pointer; }
-      .auth-tab[aria-selected="true"] { background: rgba(158,213,206,.14); color: var(--accent); }
+      .auth-title { margin: 0; font-size: clamp(28px, 7vw, 38px); font-weight: 550; letter-spacing: -.04em; }
+      .auth-intro { margin: 8px 0 22px; color: #b6c3cb; font-size: 13px; line-height: 1.6; }
+      .auth-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-bottom: 20px; padding: 4px; border: 1px solid rgba(192,214,224,.16); border-radius: 9px; background: rgba(255,255,255,.035); }
+      .auth-tab { padding: 10px; border: 0; border-radius: 6px; background: transparent; color: var(--muted); font: 550 12px system-ui, sans-serif; cursor: pointer; transition: background 180ms ease, color 180ms ease, box-shadow 180ms ease; }
+      .auth-tab[aria-selected="true"] { background: rgba(158,213,206,.14); color: var(--accent); box-shadow: inset 0 0 0 1px rgba(158,213,206,.16), 0 0 20px rgba(94,206,194,.08); }
       .auth-form { display: grid; gap: 13px; }
+      .auth-form[hidden] { display: none; }
+      .auth-form:not([hidden]) { animation: auth-form-enter 220ms ease both; }
+      @keyframes auth-form-enter { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
       .auth-field { display: grid; gap: 6px; color: #c3d0d5; font-size: 11px; }
-      .auth-field input:not([type="file"]) { width: 100%; height: 42px; padding: 0 11px; border: 1px solid var(--line); border-radius: 4px; outline: none; background: rgba(255,255,255,.045); color: var(--ink); font: 13px system-ui, sans-serif; }
-      .auth-field input:focus { border-color: rgba(158,213,206,.7); }
+      .auth-field input:not([type="file"]), .auth-bio-input { width: 100%; min-height: 42px; padding: 0 11px; border: 1px solid rgba(192,214,224,.17); border-radius: 7px; outline: none; background: rgba(255,255,255,.045); color: var(--ink); font: 13px system-ui, sans-serif; transition: border-color 180ms ease, box-shadow 180ms ease; }
+      .auth-field input:focus, .auth-bio-input:focus { border-color: rgba(158,213,206,.7); box-shadow: 0 0 0 3px rgba(158,213,206,.08); }
       .auth-field input[type="file"] { width: 100%; color: var(--muted); font: 11px system-ui, sans-serif; }
+      .auth-field-hint { color: #85959d; font-size: 10px; font-weight: 400; line-height: 1.5; }
+      .auth-bio-shell { overflow: hidden; border: 1px solid rgba(158,213,206,.22); border-radius: 9px; background: linear-gradient(145deg,rgba(158,213,206,.055),rgba(255,255,255,.025)); box-shadow: inset 0 0 22px rgba(108,186,200,.035); }
+      .auth-bio-input { display: block; min-height: 94px; padding: 11px; resize: vertical; border: 0; border-radius: 0; background: transparent; line-height: 1.55; }
+      .auth-bio-input:focus { border: 0; box-shadow: inset 0 0 0 1px rgba(158,213,206,.48); }
+      .auth-bio-tools { display: flex; min-height: 40px; align-items: center; justify-content: space-between; gap: 8px; padding: 6px 8px; border-top: 1px solid rgba(192,214,224,.12); }
+      .auth-bio-tools small { color: #82939b; font-size: 10px; }
+      .auth-voice-button { padding: 7px 10px; border: 1px solid rgba(158,213,206,.28); border-radius: 999px; background: rgba(158,213,206,.07); color: #c4e7e1; font: 550 10px system-ui, sans-serif; cursor: pointer; transition: background 160ms ease, box-shadow 160ms ease; }
+      .auth-voice-button:hover, .auth-voice-button[aria-pressed="true"] { background: rgba(158,213,206,.16); box-shadow: 0 0 18px rgba(94,206,194,.12); }
+      .auth-voice-button:disabled { opacity: .5; cursor: not-allowed; }
+      .auth-voice-status { min-height: 14px; color: var(--accent); font-size: 10px; }
       .auth-avatar-row { display: flex; align-items: center; gap: 10px; }
       .auth-avatar-preview, .profile-avatar { display: grid; flex: 0 0 auto; overflow: hidden; place-items: center; border: 1px solid rgba(192,214,224,.2); border-radius: 50%; background: linear-gradient(145deg,#24434a,#a06b53); }
       .auth-avatar-preview { width: 52px; height: 52px; font-size: 25px; }
@@ -149,7 +162,7 @@
       .avatar-options { display: flex; flex-wrap: wrap; gap: 6px; }
       .avatar-option { width: 34px; height: 34px; padding: 0; border: 1px solid var(--line); border-radius: 50%; background: rgba(255,255,255,.04); font-size: 17px; cursor: pointer; }
       .avatar-option[aria-pressed="true"] { border-color: var(--accent); background: rgba(158,213,206,.14); }
-      .auth-submit { min-height: 43px; margin-top: 4px; border: 1px solid rgba(158,213,206,.4); border-radius: 4px; background: #a4d8cf; color: #0b171a; font: 650 12px system-ui, sans-serif; cursor: pointer; }
+      .auth-submit { min-height: 45px; margin-top: 4px; border: 1px solid rgba(158,213,206,.4); border-radius: 7px; background: linear-gradient(110deg,#a4d8cf,#b7e5d6); color: #0b171a; font: 650 12px system-ui, sans-serif; cursor: pointer; box-shadow: 0 8px 24px rgba(88,190,178,.12); }
       .auth-submit:disabled { opacity: .65; cursor: progress; }
       .auth-status { min-height: 18px; margin: 14px 0 0; color: #ffb5a8; font-size: 11px; line-height: 1.45; }
       .auth-privacy { margin: 12px 0 0; color: #80919a; font-size: 10px; line-height: 1.5; }
@@ -159,6 +172,39 @@
       .profile-name { overflow: hidden; color: var(--ink); font-size: 11px; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
       .logout-button { flex: 0 0 auto; padding: 7px 9px; border: 1px solid rgba(192,214,224,.2); border-radius: 3px; background: rgba(255,255,255,.04); color: #d3dfe2; font: 550 10px system-ui, sans-serif; cursor: pointer; }
       .logout-button:hover { border-color: #ff9a9a; color: #ffb5a8; }
+      .travel-tools { position: fixed; z-index: 20; bottom: 20px; left: 20px; display: flex; gap: 8px; padding: 7px; border: 1px solid var(--line); border-radius: 10px; background: rgba(9,16,23,.86); box-shadow: 0 12px 35px rgba(0,0,0,.3); backdrop-filter: blur(16px); }
+      body.auth-locked .travel-tools { visibility: hidden; pointer-events: none; }
+      .travel-tool-button { padding: 10px 12px; border: 1px solid rgba(158,213,206,.24); border-radius: 7px; background: rgba(158,213,206,.07); color: #d7ece8; font: 550 11px system-ui, sans-serif; cursor: pointer; transition: background 160ms ease, border-color 160ms ease, box-shadow 160ms ease; }
+      .travel-tool-button:hover, .travel-tool-button[aria-pressed="true"] { border-color: rgba(158,213,206,.58); background: rgba(158,213,206,.16); box-shadow: 0 0 20px rgba(94,206,194,.12); }
+      .pin-mode-status { position: fixed; z-index: 19; bottom: 82px; left: 50%; max-width: min(460px,calc(100vw - 32px)); padding: 9px 14px; transform: translateX(-50%); border: 1px solid rgba(158,213,206,.3); border-radius: 999px; background: rgba(9,16,23,.9); color: var(--accent); font-size: 11px; text-align: center; pointer-events: none; }
+      .pin-mode-status[hidden], .travel-modal[hidden] { display: none; }
+      .travel-modal { position: fixed; inset: 0; z-index: 80; display: grid; overflow: auto; padding: 24px; place-items: center; background: rgba(3,7,12,.78); backdrop-filter: blur(14px); }
+      #travel-recap { background: rgba(3,7,12,.4); backdrop-filter: blur(3px); }
+      .travel-modal-card { position: relative; width: min(100%,520px); padding: 26px; border: 1px solid rgba(158,213,206,.2); border-radius: 16px; background: linear-gradient(145deg,rgba(18,31,42,.96),rgba(8,15,23,.97)); box-shadow: 0 25px 90px rgba(0,0,0,.55),0 0 45px rgba(83,191,181,.07); }
+      .travel-modal-close { position: absolute; top: 12px; right: 12px; display: grid; width: 34px; height: 34px; place-items: center; border: 1px solid var(--line); border-radius: 50%; background: rgba(255,255,255,.04); color: #c3d0d5; font-size: 18px; cursor: pointer; }
+      .travel-modal-close:hover { border-color: var(--accent); color: var(--accent); }
+      .travel-modal-kicker { margin: 0 0 8px; color: var(--accent); font: 10px ui-monospace,monospace; letter-spacing: .15em; text-transform: uppercase; }
+      .travel-modal-title { margin: 0; padding-right: 28px; font-size: clamp(24px,6vw,36px); font-weight: 550; letter-spacing: -.035em; }
+      .travel-modal-copy { color: #aebdc4; font-size: 12px; line-height: 1.6; }
+      .pin-dialog-form { display: grid; gap: 14px; margin-top: 20px; }
+      .pin-coordinates { color: #8699a2; font: 10px ui-monospace,monospace; }
+      .recap-card { width: min(100%,680px); min-height: min(70vh,560px); display: flex; flex-direction: column; justify-content: center; }
+      .recap-destination { margin: 12px 0 6px; font-size: clamp(32px,8vw,56px); font-weight: 550; letter-spacing: -.045em; }
+      .recap-coordinate { color: #94a8b0; font: 10px ui-monospace,monospace; }
+      .recap-highlights { display: grid; gap: 9px; margin: 26px 0 0; padding: 0; list-style: none; }
+      .recap-highlight { padding: 13px 15px; border: 1px solid rgba(192,214,224,.13); border-radius: 9px; background: rgba(255,255,255,.035); }
+      .recap-highlight-category { display: block; margin-bottom: 4px; color: var(--accent); font: 9px ui-monospace,monospace; letter-spacing: .08em; text-transform: uppercase; }
+      .recap-highlight-name { color: #eef4f7; font-size: 13px; font-weight: 600; }
+      .recap-highlight-description { margin: 4px 0 0; color: #9badb5; font-size: 11px; line-height: 1.5; }
+      .recap-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 24px; }
+      .recap-count { color: #91a2ad; font: 10px ui-monospace,monospace; }
+      .recap-nav { display: flex; gap: 7px; }
+      .recap-nav button { padding: 9px 13px; border: 1px solid rgba(158,213,206,.28); border-radius: 6px; background: rgba(158,213,206,.08); color: #d7ece8; font: 550 11px system-ui,sans-serif; cursor: pointer; }
+      .recap-nav button:disabled { opacity: .4; cursor: default; }
+      .recap-cover-stat { margin-top: 28px; color: #c4d2d7; font-size: clamp(15px,3vw,20px); }
+      .recap-cover-number { display: block; color: var(--accent); font-size: clamp(48px,12vw,88px); font-weight: 600; letter-spacing: -.06em; line-height: 1; text-shadow: 0 0 34px rgba(94,206,194,.25); }
+      .recap-empty { margin-top: 24px; padding: 16px; border: 1px dashed rgba(192,214,224,.2); border-radius: 9px; color: #aebdc4; font-size: 12px; line-height: 1.6; }
+      .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; clip-path: inset(50%); }
       .search-dock {
         position: fixed;
         z-index: 20;
@@ -318,6 +364,7 @@
         .random-button { padding: 0 8px; font-size: 10px; }
         .search-input { padding: 0 8px; font-size: 12px; }
         .user-profile { top: 78px; }
+        .travel-tools { bottom: 12px; left: 12px; }
       }
       @media (max-width: 480px) {
         .search-dock { display: grid; grid-template-columns: minmax(0, 1fr) auto; }
@@ -326,6 +373,14 @@
         .random-button { justify-self: end; }
         .user-profile { top: 122px; }
         .auth-card { padding: 24px 20px; }
+        .travel-tools { right: 12px; justify-content: center; }
+        .travel-tool-button { flex: 1; padding: 10px 8px; font-size: 10px; }
+        .travel-modal { padding: 12px; }
+        .travel-modal-card { padding: 23px 18px; }
+      }
+      @media (max-height: 850px) {
+        .auth-screen { place-items: start center; }
+        .auth-card { margin: auto 0; }
       }
     </style>
   </head>
@@ -352,13 +407,18 @@
       <span class="profile-name" id="profile-name"></span>
       <button class="logout-button" id="logout-button" type="button">Log out</button>
     </div>
+    <div class="travel-tools" aria-label="Your travel memories">
+      <button class="travel-tool-button" id="drop-pin-button" type="button" aria-pressed="false">＋ Pin a visited place</button>
+      <button class="travel-tool-button" id="open-recap-button" type="button">✦ Recap your travel</button>
+    </div>
+    <div class="pin-mode-status" id="pin-mode-status" role="status" aria-live="polite" hidden>Click a place on the globe to add a travel pin.</div>
     <aside class="info-panel" id="info-panel" aria-live="polite" aria-label="Location information">
       <div class="panel-content">
         <div class="panel-kicker" id="panel-kicker">Location guide</div>
         <h1 class="panel-title" id="panel-title">Explore the world</h1>
         <p class="panel-subtitle" id="panel-subtitle">Search for a place to focus the globe and see local highlights.</p>
         <div class="discovery-toolbar" aria-label="Experience categories">
-          <span class="discovery-toolbar-label">Discover by category</span>
+          <span class="discovery-toolbar-label">Choose categories · select more than one</span>
           <div class="category-filters" id="category-filters"></div>
           <label class="discovery-toolbar-label" for="discovery-radius">Search radius</label>
           <select class="category-filter" id="discovery-radius" aria-label="Search radius">
@@ -396,10 +456,41 @@
       </div>
     </aside>
     </div>
+    <section class="travel-modal" id="pin-dialog" role="dialog" aria-modal="true" aria-labelledby="pin-dialog-title" hidden>
+      <div class="travel-modal-card">
+        <button class="travel-modal-close" id="pin-dialog-close" type="button" aria-label="Close">×</button>
+        <p class="travel-modal-kicker">A place you remember</p>
+        <h2 class="travel-modal-title" id="pin-dialog-title">Drop a travel pin</h2>
+        <p class="travel-modal-copy">Give this spot a name. We’ll save it to your Elsewhere profile and find a few nearby places to bring the memory back.</p>
+        <form class="pin-dialog-form" id="pin-dialog-form">
+          <label class="auth-field" for="pin-name-input">Place or destination name
+            <input id="pin-name-input" type="text" maxlength="80" placeholder="e.g. Kyoto, Japan" required />
+          </label>
+          <span class="pin-coordinates" id="pin-coordinates"></span>
+          <p class="auth-status" id="pin-dialog-status" role="status" aria-live="polite"></p>
+          <button class="auth-submit" type="submit">Save this pin</button>
+        </form>
+      </div>
+    </section>
+    <section class="travel-modal" id="travel-recap" role="dialog" aria-modal="true" aria-labelledby="recap-title" hidden>
+      <div class="travel-modal-card recap-card">
+        <button class="travel-modal-close" id="recap-close" type="button" aria-label="Close travel recap">×</button>
+        <p class="travel-modal-kicker">Elsewhere · your travel story</p>
+        <h2 class="visually-hidden" id="recap-title">Travel recap</h2>
+        <div id="recap-content"></div>
+        <div class="recap-footer">
+          <span class="recap-count" id="recap-count"></span>
+          <div class="recap-nav">
+            <button id="recap-previous" type="button">← Back</button>
+            <button id="recap-next" type="button">Next →</button>
+          </div>
+        </div>
+      </div>
+    </section>
     <section class="auth-screen" id="auth-screen" aria-labelledby="auth-title">
       <div class="auth-card">
-        <p class="auth-brand">Elsewhere · your travel journal</p>
-        <h1 class="auth-title" id="auth-title">Find your elsewhere.</h1>
+        <p class="auth-brand">Elsewhere · a more personal kind of travel</p>
+        <h1 class="auth-title" id="auth-title">Your next story starts here.</h1>
         <p class="auth-intro" id="auth-intro">Sign in to pick up where your next journey begins.</p>
         <div class="auth-tabs" role="tablist" aria-label="Account access">
           <button class="auth-tab" id="login-tab" type="button" role="tab" aria-controls="login-form" aria-selected="true">Log in</button>
@@ -428,6 +519,19 @@
             <input id="signup-confirm-password" type="password" autocomplete="new-password" minlength="8" required />
           </label>
           <div class="auth-field">
+            <label for="signup-travel-bio">How do you like to travel?</label>
+            <span class="auth-field-hint">Share your ideal pace, favorite discoveries, and the places you love. Build a travel profile that feels like yours.</span>
+            <span class="auth-bio-shell">
+              <textarea class="auth-bio-input" id="signup-travel-bio" maxlength="600" placeholder="I love slow mornings, neighborhood cafés, hidden architecture, and a good walk by the water…" aria-describedby="travel-bio-hint travel-bio-count"></textarea>
+              <span class="auth-bio-tools">
+                <small id="travel-bio-count">0 / 600</small>
+                <button class="auth-voice-button" id="voice-bio-button" type="button" aria-pressed="false">🎙 Speak your travel style</button>
+              </span>
+            </span>
+            <span class="auth-voice-status" id="voice-bio-status" role="status" aria-live="polite"></span>
+            <span class="auth-field-hint" id="travel-bio-hint">Text is saved to your local profile. If you use voice, your browser’s speech service processes the audio; Elsewhere only keeps the resulting text.</span>
+          </div>
+          <div class="auth-field">
             <span>Profile picture</span>
             <div class="auth-avatar-row">
               <span class="auth-avatar-preview" id="auth-avatar-preview" aria-hidden="true">🧭</span>
@@ -442,7 +546,7 @@
           <button class="auth-submit" id="signup-submit" type="submit">Create account</button>
         </form>
         <p class="auth-status" id="auth-status" role="alert" aria-live="polite"></p>
-        <p class="auth-privacy">Your account is stored only in this browser. Use a unique password; this demo has no server-side account recovery or synchronization.</p>
+          <p class="auth-privacy">Your profile is stored only in this browser. Voice input is processed by your browser’s speech service; only the transcript is saved. Use a unique password; there’s no server-side recovery or sync.</p>
       </div>
     </section>
 <script type="module">
@@ -460,7 +564,9 @@ const loginTab=document.getElementById("login-tab");
 const signupTab=document.getElementById("signup-tab");
 const userProfile=document.getElementById("user-profile");
 let activeProfile=null;
+let travelSceneReady=false;
 let selectedAvatar="🧭";
+let voiceRecognition=null;
 
 function readAccounts(){
   const stored=localStorage.getItem(accountStorageKey);
@@ -478,14 +584,30 @@ function getPasswordHash(password,salt){
     .then(bits=>btoa(String.fromCharCode(...new Uint8Array(bits))));
 }
 
+function stopVoiceInput(){
+  const recognition=voiceRecognition;
+  voiceRecognition=null;
+  if(recognition){
+    try{
+      recognition.stop();
+    }catch(error){
+      console.warn("Unable to stop browser speech recognition cleanly:",error);
+    }
+  }
+  const button=document.getElementById("voice-bio-button");
+  button.setAttribute("aria-pressed","false");
+  button.textContent="🎙 Speak your travel style";
+}
+
 function setAuthMode(mode){
+  stopVoiceInput();
   const signingUp=mode==="signup";
   loginForm.hidden=signingUp;
   signupForm.hidden=!signingUp;
   loginTab.setAttribute("aria-selected",String(!signingUp));
   signupTab.setAttribute("aria-selected",String(signingUp));
   document.getElementById("auth-intro").textContent=signingUp
-    ?"Create a profile for your next journey."
+    ?"Tell Elsewhere what makes a trip feel like you. A few words are plenty."
     :"Sign in to pick up where your next journey begins.";
   authStatus.textContent="";
 }
@@ -516,6 +638,20 @@ function setAuthenticated(profile){
   }else{
     avatar.textContent=presetAvatars.includes(profile.avatar)?profile.avatar:"🧭";
   }
+  if(travelSceneReady)renderTravelPins();
+}
+
+function saveProfileUpdates(updates){
+  if(!activeProfile)throw new Error("Sign in before saving travel memories.");
+  const accounts=readAccounts();
+  const accountIndex=accounts.findIndex(account=>account.email===activeProfile.email);
+  if(accountIndex<0)throw new Error("The signed-in profile could not be found in local storage.");
+  const updatedProfile={...accounts[accountIndex],...updates};
+  accounts[accountIndex]=updatedProfile;
+  localStorage.setItem(accountStorageKey,JSON.stringify(accounts));
+  activeProfile=updatedProfile;
+  if(travelSceneReady)renderTravelPins();
+  return updatedProfile;
 }
 
 function setAuthBusy(form,busy){
@@ -569,6 +705,79 @@ function initializeAccountUi(){
 
 loginTab.addEventListener("click",()=>setAuthMode("login"));
 signupTab.addEventListener("click",()=>setAuthMode("signup"));
+
+const travelBioInput=document.getElementById("signup-travel-bio");
+const travelBioCount=document.getElementById("travel-bio-count");
+const voiceBioButton=document.getElementById("voice-bio-button");
+const voiceBioStatus=document.getElementById("voice-bio-status");
+travelBioInput.addEventListener("input",()=>{
+  travelBioCount.textContent=`${travelBioInput.value.length} / 600`;
+});
+voiceBioButton.addEventListener("click",()=>{
+  if(voiceRecognition){
+    stopVoiceInput();
+    voiceBioStatus.textContent="Voice capture stopped.";
+    return;
+  }
+  const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SpeechRecognition){
+    voiceBioStatus.textContent="Voice input isn’t available in this browser. You can type your preferences instead.";
+    return;
+  }
+  try{
+    const recognition=new SpeechRecognition();
+    recognition.lang=navigator.language||"en-US";
+    recognition.continuous=false;
+    recognition.interimResults=false;
+    recognition.onstart=()=>{
+      voiceRecognition=recognition;
+      voiceBioButton.setAttribute("aria-pressed","true");
+      voiceBioButton.textContent="■ Stop listening";
+      voiceBioStatus.textContent="Listening… Speak naturally about your ideal trip.";
+    };
+    recognition.onresult=event=>{
+      const transcript=Array.from(event.results)
+        .filter(result=>result.isFinal)
+        .map(result=>result[0].transcript.trim())
+        .filter(Boolean)
+        .join(" ");
+      if(!transcript)return;
+      const existing=travelBioInput.value.trim();
+      const separator=existing&&/[.!?]$/.test(existing)?" ":". ";
+      const remaining=600-travelBioInput.value.length;
+      if(remaining>0){
+        travelBioInput.value=`${travelBioInput.value}${existing?separator:""}${transcript}`.slice(0,600);
+        travelBioInput.dispatchEvent(new Event("input",{bubbles:true}));
+      }
+      voiceBioStatus.textContent="Added your words. Edit the text anytime.";
+    };
+    recognition.onerror=event=>{
+      const message=event.error==="not-allowed"||event.error==="service-not-allowed"
+        ?"Microphone access was not granted. You can type your preferences instead."
+        :event.error==="no-speech"
+          ?"No speech detected. Try again or type your preferences."
+          :`Voice input stopped (${event.error}). You can type your preferences instead.`;
+      voiceBioStatus.textContent=message;
+    };
+    recognition.onend=()=>{
+      if(voiceRecognition===recognition)voiceRecognition=null;
+      voiceBioButton.setAttribute("aria-pressed","false");
+      voiceBioButton.textContent="🎙 Speak your travel style";
+      if(voiceBioStatus.textContent.startsWith("Listening")){
+        voiceBioStatus.textContent="Voice input finished. Edit the text anytime.";
+      }
+    };
+    voiceRecognition=recognition;
+    voiceBioStatus.textContent="Starting voice input…";
+    recognition.start();
+  }catch(error){
+    voiceRecognition=null;
+    voiceBioButton.setAttribute("aria-pressed","false");
+    voiceBioButton.textContent="🎙 Speak your travel style";
+    console.error("Unable to start browser speech recognition:",error);
+    voiceBioStatus.textContent="Could not start voice input. Check microphone permissions or type your preferences.";
+  }
+});
 loginForm.addEventListener("submit",async event=>{
   event.preventDefault();
   authStatus.textContent="";
@@ -645,6 +854,7 @@ signupForm.addEventListener("submit",async event=>{
   const email=document.getElementById("signup-email").value.trim().toLowerCase();
   const password=document.getElementById("signup-password").value;
   const confirmation=document.getElementById("signup-confirm-password").value;
+  const travelBio=travelBioInput.value.trim();
   if(!/^[a-zA-Z0-9_][a-zA-Z0-9_.-]{2,23}$/.test(username)){
     authStatus.textContent="Username must be 3–24 characters and use letters, numbers, dots, dashes, or underscores.";
     return;
@@ -671,10 +881,12 @@ signupForm.addEventListener("submit",async event=>{
     const saltBytes=crypto.getRandomValues(new Uint8Array(16));
     const salt=btoa(String.fromCharCode(...saltBytes));
     const passwordHash=await getPasswordHash(password,salt);
-    const account={email,username,avatar:selectedAvatar,salt,passwordHash};
+    const account={email,username,avatar:selectedAvatar,travelBio,salt,passwordHash};
     localStorage.setItem(accountStorageKey,JSON.stringify([...accounts,account]));
     localStorage.setItem(accountSessionKey,email);
     signupForm.reset();
+    travelBioCount.textContent="0 / 600";
+    voiceBioStatus.textContent="";
     resetAvatarSelection();
     setAuthenticated(account);
   }catch(error){
@@ -687,6 +899,9 @@ signupForm.addEventListener("submit",async event=>{
 
 document.getElementById("logout-button").addEventListener("click",()=>{
   try{
+    closeTravelRecap();
+    closePinDialog();
+    setPinDropMode(false);
     localStorage.removeItem(accountSessionKey);
     loginForm.reset();
     signupForm.reset();
@@ -702,6 +917,13 @@ initializeAccountUi();
 const viewport=document.getElementById("scene-viewport");
 const loading=document.getElementById("loading");
 const scene=new THREE.Scene(); scene.background=new THREE.Color(0x070b11);
+const travelPinGroup=new THREE.Group();
+scene.add(travelPinGroup);
+const recapRouteGroup=new THREE.Group();
+scene.add(recapRouteGroup);
+const recapPathSegments=[];
+const recapPulseMarkers=[];
+const loadingPinHighlights=new Set();
 const camera=new THREE.PerspectiveCamera(38,viewport.clientWidth/viewport.clientHeight,.1,100);
 camera.position.set(0,0,3.25);
 const renderer=new THREE.WebGLRenderer({antialias:true,alpha:false});
@@ -723,6 +945,11 @@ let pointerPosition=null;
 let hoveredCountry=null;
 let pointerDown=null;
 let pointerDragged=false;
+let pinDropMode=false;
+let pendingPinCoordinates=null;
+let recapSlideIndex=0;
+let recapVisible=false;
+let recapStartedAt=0;
 
 function showCountryTooltip(position,label,name){
   countryTooltipLabel.textContent=label;
@@ -738,7 +965,7 @@ function showCountryTooltip(position,label,name){
 function hideCountryTooltip(){
   countryTooltip.hidden=true;
   hoveredCountry=null;
-  renderer.domElement.style.cursor="";
+  renderer.domElement.style.cursor=pinDropMode?"crosshair":"";
 }
 
 function pointInRing(longitude,latitude,ring){
@@ -764,21 +991,23 @@ function pointInCountry(longitude,latitude,geometry){
 function getCountryAt(intersection){
   if(!countryFeatures||!intersection.uv)return null;
   const longitude=intersection.uv.x*360-180;
-  const latitude=intersection.uv.y*180-90;
+  const latitude=90-intersection.uv.y*180;
   const feature=countryFeatures.find(country=>country.geometry&&pointInCountry(longitude,latitude,country.geometry));
   return feature?.properties?.ADMIN||feature?.properties?.name||null;
 }
 
-function updateCountryHover(position=pointerPosition){
-  if(!position)return;
+function getGlobeIntersection(position){
+  if(!position)return null;
   const rect=renderer.domElement.getBoundingClientRect();
-  if(position.x<rect.left||position.x>rect.right||position.y<rect.top||position.y>rect.bottom){
-    hideCountryTooltip();
-    return;
-  }
+  if(position.x<rect.left||position.x>rect.right||position.y<rect.top||position.y>rect.bottom)return null;
   pointer.set((position.x-rect.left)/rect.width*2-1,-(position.y-rect.top)/rect.height*2+1);
   raycaster.setFromCamera(pointer,camera);
-  const intersection=raycaster.intersectObject(earth,false)[0];
+  return raycaster.intersectObject(earth,false)[0]||null;
+}
+
+function updateCountryHover(position=pointerPosition){
+  if(!position)return;
+  const intersection=getGlobeIntersection(position);
   if(!intersection){
     hideCountryTooltip();
     return;
@@ -786,7 +1015,7 @@ function updateCountryHover(position=pointerPosition){
   const country=getCountryAt(intersection);
   if(country){
     hoveredCountry=country;
-    renderer.domElement.style.cursor="pointer";
+    renderer.domElement.style.cursor=pinDropMode?"crosshair":"pointer";
     showCountryTooltip(position,"COUNTRY",country);
   }else if(countryBoundaryError){
     hoveredCountry=null;
@@ -819,6 +1048,23 @@ renderer.domElement.addEventListener("pointercancel",()=>{pointerDown=null;point
 renderer.domElement.addEventListener("click",event=>{
   if(pointerDragged)return;
   pointerPosition={x:event.clientX,y:event.clientY};
+  if(pinDropMode){
+    if(!activeProfile){
+      setPinDropMode(false);
+      showAuth("login","Sign in to save travel pins.");
+      return;
+    }
+    const intersection=getGlobeIntersection(pointerPosition);
+    if(!intersection?.uv){
+      document.getElementById("pin-mode-status").textContent="Click directly on the globe to place your pin.";
+      return;
+    }
+    const longitude=intersection.uv.x*360-180;
+    const latitude=90-intersection.uv.y*180;
+    hideCountryTooltip();
+    openPinDialog({latitude,longitude,country:getCountryAt(intersection)});
+    return;
+  }
   updateCountryHover(pointerPosition);
   if(!hoveredCountry)return;
   input.value=hoveredCountry;
@@ -858,9 +1104,11 @@ let flashcardDragStart=null;
 let recommendationsLoading=false;
 let recommendationsError="";
 let recommendationRequest=0;
-let selectedCategory="All";
+const selectedCategories=new Set();
 const savedFlashcards=new Map();
 const recommendationCategories=["Food & drink","Culture","Nature","Landmarks"];
+const landmarkPhotoCache=new Map();
+const assignedLandmarkPhotoUrls=new Map();
 const destinationExperienceTemplates=[
   {category:"Food & drink",name:"Local market stroll",description:"Browse seasonal produce, regional snacks, and everyday favorites around"},
   {category:"Food & drink",name:"Neighborhood coffee stop",description:"Pause at independent cafés and try a local coffee style in"},
@@ -913,6 +1161,12 @@ const unsplashPhotos={
     "photo-1533929736458-ca588d08c8be"
   ]
 };
+const fallbackPhotos=Object.fromEntries(
+  Object.entries(unsplashPhotos).map(([category,photos])=>[
+    category,
+    category==="Landmarks"?photos:photos.slice(0,1)
+  ])
+);
 
 function getUnsplashUrl(photoId){
   return `https://images.unsplash.com/${photoId}?auto=format&fit=crop&w=900&q=82`;
@@ -921,14 +1175,116 @@ function getUnsplashUrl(photoId){
 function addPolaroidPhotos(cards){
   const categoryIndexes=new Map();
   return cards.map(card=>{
-    const photos=unsplashPhotos[card.category]||unsplashPhotos.Landmarks;
+    const photos=fallbackPhotos[card.category]||fallbackPhotos.Landmarks;
     const index=categoryIndexes.get(card.category)||0;
     categoryIndexes.set(card.category,index+1);
     return {
       ...card,
-      photoUrls:photos.map((photoId,offset)=>getUnsplashUrl(photos[(index+offset)%photos.length]))
+      photoUrls:card.category==="Landmarks"
+        ?photos.map((photoId,offset)=>getUnsplashUrl(photos[(index+offset)%photos.length]))
+        :[getUnsplashUrl(photos[0])]
     };
   });
+}
+
+function getCommonsFileTitle(value){
+  if(!value)return null;
+  let title=value.trim();
+  if(/^https?:\/\//i.test(title)){
+    try{
+      const filePath=new URL(title).pathname.match(/\/wiki\/File:(.+)$/i);
+      if(!filePath)return null;
+      title=decodeURIComponent(filePath[1]);
+    }catch(error){
+      console.warn("Unable to parse the place-linked Wikimedia Commons URL:",error);
+      return null;
+    }
+  }
+  title=title.replace(/^File:/i,"").replaceAll("_"," ").trim();
+  return !title||/^Category:/i.test(title)?null:title;
+}
+
+async function getCommonsImage(title){
+  const params=new URLSearchParams({
+    action:"query",
+    titles:`File:${title}`,
+    prop:"imageinfo",
+    iiprop:"url",
+    iiurlwidth:"900",
+    format:"json",
+    formatversion:"2",
+    origin:"*"
+  });
+  const response=await fetch(`https://commons.wikimedia.org/w/api.php?${params}`);
+  if(!response.ok)throw new Error(`Wikimedia Commons image lookup failed: ${response.status}`);
+  const data=await response.json();
+  const info=data.query?.pages?.[0]?.imageinfo?.[0];
+  return info?.thumburl?{url:info.thumburl,credit:"Wikimedia Commons"}:null;
+}
+
+async function searchCommonsLandmarkPhoto(card,destination){
+  const params=new URLSearchParams({
+    action:"query",
+    generator:"search",
+    gsrsearch:`${card.name} landmark ${destination.name}`,
+    gsrnamespace:"6",
+    gsrlimit:"5",
+    prop:"imageinfo",
+    iiprop:"url",
+    iiurlwidth:"900",
+    format:"json",
+    formatversion:"2",
+    origin:"*"
+  });
+  const response=await fetch(`https://commons.wikimedia.org/w/api.php?${params}`);
+  if(!response.ok)throw new Error(`Wikimedia Commons landmark search failed: ${response.status}`);
+  const data=await response.json();
+  const pages=data.query?.pages||[];
+  const exactName=normalizePlaceName(card.name);
+  const matchingPage=pages.find(page=>normalizePlaceName(page.title.replace(/^File:/i,"").replace(/\.[^.]+$/,"")).includes(exactName));
+  const info=(matchingPage||pages[0])?.imageinfo?.[0];
+  return info?.thumburl?{url:info.thumburl,credit:"Wikimedia Commons"}:null;
+}
+
+async function resolveLandmarkPhoto(card,destination){
+  const commonsTitle=getCommonsFileTitle(card.tags?.wikimedia_commons);
+  if(commonsTitle){
+    const image=await getCommonsImage(commonsTitle);
+    if(image)return image;
+  }
+  const wikidataId=/^Q\d+$/.test(card.tags?.wikidata||"")?card.tags.wikidata:null;
+  if(wikidataId){
+    const params=new URLSearchParams({
+      action:"wbgetentities",
+      ids:wikidataId,
+      props:"claims",
+      format:"json",
+      origin:"*"
+    });
+    const response=await fetch(`https://www.wikidata.org/w/api.php?${params}`);
+    if(!response.ok)throw new Error(`Wikidata landmark image lookup failed: ${response.status}`);
+    const data=await response.json();
+    const file=data.entities?.[wikidataId]?.claims?.P18?.[0]?.mainsnak?.datavalue?.value;
+    if(file){
+      const image=await getCommonsImage(file);
+      if(image)return image;
+    }
+  }
+  return searchCommonsLandmarkPhoto(card,destination);
+}
+
+function getLandmarkPhoto(card,destination){
+  if(landmarkPhotoCache.has(card.id))return landmarkPhotoCache.get(card.id);
+  const request=resolveLandmarkPhoto(card,destination).then(image=>{
+    if(!image)return null;
+    const assignedTo=assignedLandmarkPhotoUrls.get(image.url);
+    if(assignedTo&&assignedTo!==card.id)return null;
+    assignedLandmarkPhotoUrls.set(image.url,card.id);
+    return image;
+  });
+  landmarkPhotoCache.set(card.id,request);
+  request.catch(()=>landmarkPhotoCache.delete(card.id));
+  return request;
 }
 
 function normalizePlaceName(value){
@@ -1273,10 +1629,358 @@ function createDestinationDeck(destination,recommendations=[]){
 }
 
 function getFilteredRecommendations(){
-  return selectedCategory==="All"
+  return selectedCategories.size===0
     ?allRecommendations
-    :allRecommendations.filter(card=>card.category===selectedCategory);
+    :allRecommendations.filter(card=>selectedCategories.has(card.category));
 }
+
+function getCategorySelectionLabel(){
+  return selectedCategories.size
+    ?[...selectedCategories].join(" + ")
+    :"all categories";
+}
+
+function getProfilePins(){
+  if(!Array.isArray(activeProfile?.travelPins))return [];
+  return activeProfile.travelPins.filter(pin=>
+    pin&&typeof pin.id==="string"&&typeof pin.name==="string"&&pin.name.trim()
+    &&Number.isFinite(pin.latitude)&&pin.latitude>=-90&&pin.latitude<=90
+    &&Number.isFinite(pin.longitude)&&pin.longitude>=-180&&pin.longitude<=180
+  );
+}
+
+function getGlobePosition(latitude,longitude,radius=1.025){
+  const latitudeRadians=THREE.MathUtils.degToRad(latitude);
+  const longitudeRadians=THREE.MathUtils.degToRad(longitude);
+  return new THREE.Vector3(
+    Math.cos(latitudeRadians)*Math.cos(longitudeRadians),
+    Math.sin(latitudeRadians),
+    -Math.cos(latitudeRadians)*Math.sin(longitudeRadians)
+  ).applyAxisAngle(new THREE.Vector3(0,1,0),earth.rotation.y).multiplyScalar(radius);
+}
+
+function clearTravelGroup(group){
+  for(const child of [...group.children]){
+    child.traverse(object=>{
+      object.geometry?.dispose();
+      if(Array.isArray(object.material))object.material.forEach(material=>material.dispose());
+      else object.material?.dispose();
+    });
+  }
+  group.clear();
+}
+
+function renderTravelPins(){
+  clearTravelGroup(travelPinGroup);
+  for(const pin of getProfilePins()){
+    const position=getGlobePosition(pin.latitude,pin.longitude,1.025);
+    const halo=new THREE.Mesh(
+      new THREE.SphereGeometry(.027,16,16),
+      new THREE.MeshBasicMaterial({color:0x9ed5ce,transparent:true,opacity:.35,depthWrite:false})
+    );
+    halo.position.copy(position);
+    halo.name=`travel-pin-halo-${pin.id}`;
+    const center=new THREE.Mesh(
+      new THREE.SphereGeometry(.012,16,16),
+      new THREE.MeshBasicMaterial({color:0xe7fff7,depthWrite:false})
+    );
+    center.position.copy(position);
+    center.name=`travel-pin-${pin.id}`;
+    travelPinGroup.add(halo,center);
+  }
+}
+
+function setPinDropMode(enabled){
+  pinDropMode=Boolean(enabled)&&Boolean(activeProfile);
+  const button=document.getElementById("drop-pin-button");
+  button.setAttribute("aria-pressed",String(pinDropMode));
+  button.textContent=pinDropMode?"Click the globe to pin · Cancel":"＋ Pin a visited place";
+  document.getElementById("pin-mode-status").hidden=!pinDropMode;
+  document.getElementById("pin-mode-status").textContent="Click a place on the globe to add a travel pin.";
+  renderer.domElement.style.cursor=pinDropMode?"crosshair":"";
+}
+
+function openPinDialog(location){
+  pendingPinCoordinates=location;
+  setPinDropMode(false);
+  const nearSelected=selectedDestination
+    &&distanceBetween(selectedDestination,location)<30000;
+  document.getElementById("pin-name-input").value=nearSelected
+    ?selectedDestination.displayName||selectedDestination.name
+    :location.country||"";
+  document.getElementById("pin-coordinates").textContent=`${location.latitude.toFixed(3)}, ${location.longitude.toFixed(3)}${location.country?` · ${location.country}`:""}`;
+  document.getElementById("pin-dialog-status").textContent="";
+  const dialog=document.getElementById("pin-dialog");
+  dialog.hidden=false;
+  document.getElementById("pin-name-input").focus();
+}
+
+function closePinDialog(){
+  document.getElementById("pin-dialog").hidden=true;
+  pendingPinCoordinates=null;
+}
+
+function getLocalPinHighlights(pin){
+  const liked=getSavedCards({name:pin.name}).liked;
+  const nearby=selectedDestination&&distanceBetween(selectedDestination,pin)<30000
+    ?allRecommendations.filter(card=>distanceBetween(card.location,pin)<=10000)
+    :[];
+  const candidates=[...liked,...nearby]
+    .filter(card=>["Food & drink","Culture","Landmarks"].includes(card.category))
+    .sort((first,second)=>{
+      const priority=category=>category==="Landmarks"?0:category==="Food & drink"?1:2;
+      return priority(first.category)-priority(second.category)||(first.distance||0)-(second.distance||0);
+    });
+  const seen=new Set();
+  return candidates.filter(card=>{
+    const key=normalizePlaceName(card.name);
+    if(seen.has(key))return false;
+    seen.add(key);
+    return true;
+  }).slice(0,3).map(card=>({
+    name:card.name,
+    category:card.category,
+    description:card.description,
+    placeId:card.placeId||null
+  }));
+}
+
+async function loadPinHighlights(pinId,ownerEmail){
+  loadingPinHighlights.add(pinId);
+  if(recapVisible)renderRecapSlide();
+  try{
+    const pin=getProfilePins().find(item=>item.id===pinId);
+    if(!pin||activeProfile?.email!==ownerEmail)return;
+    const response=await fetch(overpassEndpoint,{
+      method:"POST",
+      headers:{"Content-Type":"application/x-www-form-urlencoded;charset=UTF-8"},
+      body:new URLSearchParams({data:buildRecommendationQuery(pin,5000)})
+    });
+    if(!response.ok)throw new Error(`Nearby highlight lookup failed: ${response.status}`);
+    const data=await response.json();
+    if(activeProfile?.email!==ownerEmail)return;
+    const highlights=createPlaceRecommendations(Array.isArray(data.elements)?data.elements:[],pin)
+      .filter(card=>["Landmarks","Food & drink","Culture"].includes(card.category))
+      .slice(0,3)
+      .map(card=>({
+        name:card.name,
+        category:card.category,
+        description:card.description,
+        placeId:card.placeId
+      }));
+    if(highlights.length){
+      saveProfileUpdates({
+        travelPins:getProfilePins().map(item=>item.id===pinId?{...item,highlights}:item)
+      });
+    }
+    const status=document.getElementById("pin-mode-status");
+    status.textContent=highlights.length?"Nearby highlights added to your travel pin.":"Pin saved. No named highlights were found nearby.";
+    status.hidden=false;
+    setTimeout(()=>{
+      if(status.textContent.startsWith("Nearby highlights added")||status.textContent.startsWith("Pin saved. No named")){
+        status.hidden=true;
+      }
+    },4500);
+  }catch(error){
+    console.error("Unable to load highlights for a travel pin:",error);
+    document.getElementById("pin-mode-status").textContent="Pin saved. Nearby highlights couldn’t be loaded right now.";
+    document.getElementById("pin-mode-status").hidden=false;
+  }finally{
+    loadingPinHighlights.delete(pinId);
+    if(recapVisible)renderRecapSlide();
+  }
+}
+
+function clearRecapRoute(){
+  clearTravelGroup(recapRouteGroup);
+  recapPathSegments.length=0;
+  recapPulseMarkers.length=0;
+}
+
+function buildRecapRoute(pins){
+  clearRecapRoute();
+  for(const pin of pins){
+    const halo=new THREE.Mesh(
+      new THREE.SphereGeometry(.033,18,18),
+      new THREE.MeshBasicMaterial({color:0x74e4d1,transparent:true,opacity:.36,depthWrite:false})
+    );
+    halo.position.copy(getGlobePosition(pin.latitude,pin.longitude,1.035));
+    recapRouteGroup.add(halo);
+    recapPulseMarkers.push(halo);
+    const center=new THREE.Mesh(
+      new THREE.SphereGeometry(.014,18,18),
+      new THREE.MeshBasicMaterial({color:0xf0fff9,depthWrite:false})
+    );
+    center.position.copy(getGlobePosition(pin.latitude,pin.longitude,1.045));
+    recapRouteGroup.add(center);
+  }
+  for(let index=0;index<pins.length-1;index++){
+    const start=getGlobePosition(pins[index].latitude,pins[index].longitude,1);
+    const end=getGlobePosition(pins[index+1].latitude,pins[index+1].longitude,1);
+    const points=[];
+    const pointCount=100;
+    for(let pointIndex=0;pointIndex<pointCount;pointIndex++){
+      const progress=pointIndex/(pointCount-1);
+      const position=start.clone().slerp(end,progress).normalize()
+        .multiplyScalar(1.012+Math.sin(progress*Math.PI)*.085);
+      points.push(position);
+    }
+    const geometry=new THREE.BufferGeometry().setFromPoints(points);
+    geometry.setDrawRange(0,0);
+    const line=new THREE.Line(geometry,new THREE.LineBasicMaterial({
+      color:0x8fffe2,
+      transparent:true,
+      opacity:.9,
+      depthWrite:false
+    }));
+    recapRouteGroup.add(line);
+    recapPathSegments.push({geometry,pointCount});
+  }
+}
+
+function updateRecapRoute(now){
+  if(!recapVisible)return;
+  const segmentDuration=1000;
+  const elapsed=now-recapStartedAt;
+  recapPathSegments.forEach((segment,index)=>{
+    const progress=THREE.MathUtils.clamp((elapsed-index*segmentDuration)/segmentDuration,0,1);
+    segment.geometry.setDrawRange(0,Math.ceil(progress*segment.pointCount));
+  });
+  const pulse=1+Math.sin(now*.004)*.22;
+  recapPulseMarkers.forEach(marker=>marker.scale.setScalar(pulse));
+}
+
+function appendRecapText(parent,tagName,className,text){
+  const element=document.createElement(tagName);
+  element.className=className;
+  element.textContent=text;
+  parent.append(element);
+  return element;
+}
+
+function renderRecapSlide(){
+  const pins=getProfilePins();
+  const content=document.getElementById("recap-content");
+  content.replaceChildren();
+  if(recapSlideIndex===0){
+    appendRecapText(content,"h2","travel-modal-title","Your year, in places.");
+    appendRecapText(content,"p","travel-modal-copy","Every pin marks a place you called yours. Follow the glowing thread across the globe and revisit the small discoveries along the way.");
+    const stat=appendRecapText(content,"p","recap-cover-stat","");
+    appendRecapText(stat,"span","recap-cover-number",String(pins.length).padStart(2,"0"));
+    stat.append(document.createTextNode(pins.length===1?" place pinned":" places pinned"));
+    if(!pins.length){
+      appendRecapText(content,"p","recap-empty","Your travel story starts with a pin. Close this recap, choose “Pin a visited place,” and click its location on the globe.");
+    }
+  }else{
+    const pin=pins[recapSlideIndex-1];
+    if(!pin){
+      recapSlideIndex=0;
+      renderRecapSlide();
+      return;
+    }
+    appendRecapText(content,"span","travel-modal-kicker",`Chapter ${String(recapSlideIndex).padStart(2,"0")} · visited`);
+    appendRecapText(content,"h2","recap-destination",pin.name);
+    appendRecapText(content,"p","recap-coordinate",`${pin.latitude.toFixed(3)}, ${pin.longitude.toFixed(3)}`);
+    appendRecapText(content,"p","travel-modal-copy","Nearby spots to bring this stop back to life.");
+    const highlights=Array.isArray(pin.highlights)?pin.highlights:[];
+    if(highlights.length){
+      const list=appendRecapText(content,"ul","recap-highlights","");
+      for(const highlight of highlights){
+        const item=appendRecapText(list,"li","recap-highlight","");
+        appendRecapText(item,"span","recap-highlight-category",highlight.category||"Local highlight");
+        appendRecapText(item,"span","recap-highlight-name",highlight.name);
+        if(highlight.description)appendRecapText(item,"p","recap-highlight-description",highlight.description);
+      }
+    }else{
+      const loading=loadingPinHighlights.has(pin.id);
+      appendRecapText(content,"p","recap-empty",loading
+        ?"Finding a few local cafés, landmarks, and cultural spots…"
+        :"No nearby spots were found for this pin yet. You can still add more visited places to your story.");
+    }
+  }
+  document.getElementById("recap-count").textContent=pins.length
+    ?`${recapSlideIndex===0?"Your journey":`Place ${recapSlideIndex} of ${pins.length}`}`
+    :"Your travel story";
+  document.getElementById("recap-previous").disabled=recapSlideIndex===0;
+  document.getElementById("recap-next").disabled=!pins.length||recapSlideIndex>=pins.length;
+  document.getElementById("recap-next").textContent=recapSlideIndex>=pins.length?"The end":"Next →";
+}
+
+function openTravelRecap(){
+  if(!activeProfile){
+    showAuth("login","Sign in to see your travel recap.");
+    return;
+  }
+  const pins=[...getProfilePins()].sort((first,second)=>first.createdAt-second.createdAt);
+  recapSlideIndex=0;
+  recapVisible=true;
+  recapStartedAt=performance.now();
+  buildRecapRoute(pins);
+  renderRecapSlide();
+  document.getElementById("travel-recap").hidden=false;
+}
+
+function closeTravelRecap(){
+  recapVisible=false;
+  document.getElementById("travel-recap").hidden=true;
+  clearRecapRoute();
+}
+
+document.getElementById("drop-pin-button").addEventListener("click",()=>{
+  if(!activeProfile){
+    showAuth("login","Sign in to save travel pins.");
+    return;
+  }
+  setPinDropMode(!pinDropMode);
+});
+document.getElementById("pin-dialog-close").addEventListener("click",closePinDialog);
+document.getElementById("pin-dialog").addEventListener("click",event=>{
+  if(event.target.id==="pin-dialog")closePinDialog();
+});
+document.getElementById("pin-dialog-form").addEventListener("submit",event=>{
+  event.preventDefault();
+  if(!activeProfile||!pendingPinCoordinates)return;
+  const name=document.getElementById("pin-name-input").value.trim();
+  if(!name)return;
+  const pin={
+    id:crypto.randomUUID?.()||`${Date.now()}-${Math.random().toString(36).slice(2)}`,
+    name,
+    latitude:pendingPinCoordinates.latitude,
+    longitude:pendingPinCoordinates.longitude,
+    createdAt:Date.now(),
+    highlights:getLocalPinHighlights({name,...pendingPinCoordinates})
+  };
+  try{
+    saveProfileUpdates({travelPins:[...getProfilePins(),pin]});
+    const ownerEmail=activeProfile.email;
+    closePinDialog();
+    document.getElementById("pin-mode-status").textContent=`Pinned ${name} · finding nearby highlights…`;
+    document.getElementById("pin-mode-status").hidden=false;
+    loadPinHighlights(pin.id,ownerEmail);
+  }catch(error){
+    console.error("Unable to save travel pin:",error);
+    document.getElementById("pin-dialog-status").textContent=`Could not save this pin: ${error.message}`;
+  }
+});
+document.getElementById("open-recap-button").addEventListener("click",openTravelRecap);
+document.getElementById("recap-close").addEventListener("click",closeTravelRecap);
+document.getElementById("travel-recap").addEventListener("click",event=>{
+  if(event.target.id==="travel-recap")closeTravelRecap();
+});
+document.getElementById("recap-previous").addEventListener("click",()=>{
+  recapSlideIndex=Math.max(0,recapSlideIndex-1);
+  renderRecapSlide();
+});
+document.getElementById("recap-next").addEventListener("click",()=>{
+  recapSlideIndex=Math.min(getProfilePins().length,recapSlideIndex+1);
+  renderRecapSlide();
+});
+document.addEventListener("keydown",event=>{
+  if(event.key!=="Escape")return;
+  if(!document.getElementById("travel-recap").hidden)closeTravelRecap();
+  else if(!document.getElementById("pin-dialog").hidden)closePinDialog();
+  else if(pinDropMode)setPinDropMode(false);
+});
 
 async function loadDestinationRecommendations(destination){
   const request=++recommendationRequest;
@@ -1304,7 +2008,7 @@ async function loadDestinationRecommendations(destination){
     renderFlashcard();
     const count=currentFlashcards.length;
     document.getElementById("discovery-status").textContent=count
-      ?`${count} ${selectedCategory==="All"?"destination":selectedCategory} picks · local places and curated ideas`
+      ?`${count} ${selectedCategories.size?getCategorySelectionLabel()+" ":""}destination picks · local places and curated ideas`
       :"Curated destination picks are ready";
   }catch(error){
     if(request!==recommendationRequest||selectedDestination!==destination)return;
@@ -1399,6 +2103,11 @@ function renderFlashcard(){
       imageCaption.textContent=`${card.category} · ${card.name}`;
       return;
     }
+    if(photo.dataset.sourceKind==="landmark"){
+      assignedLandmarkPhotoUrls.delete(photo.src);
+      photo.dataset.sourceKind="fallback";
+      photoIndex=-1;
+    }
     if(photoIndex<card.photoUrls.length-1){
       photoIndex++;
       photo.src=card.photoUrls[photoIndex];
@@ -1410,6 +2119,16 @@ function renderFlashcard(){
   });
   image.append(imageCaption,photo);
   photo.src=card.photoUrls[photoIndex];
+  if(card.category==="Landmarks"){
+    getLandmarkPhoto(card,selectedDestination)
+      .then(imageResult=>{
+        if(!photo.isConnected||!imageResult)return;
+        photo.dataset.sourceKind="landmark";
+        photo.title=imageResult.credit;
+        photo.src=imageResult.url;
+      })
+      .catch(error=>console.warn("Unable to load a landmark-specific photo:",error));
+  }
   const copy=document.createElement("div");
   copy.className="polaroid-copy";
   const category=document.createElement("div");
@@ -1740,19 +2459,29 @@ for(const category of ["All",...recommendationCategories]){
   const button=document.createElement("button");
   button.type="button";
   button.className="category-filter";
-  button.textContent=category;
-  button.setAttribute("aria-pressed",String(category===selectedCategory));
+  button.dataset.category=category;
+  button.textContent=category==="Food & drink"?"Food & drinks":category;
+  button.setAttribute("aria-pressed",String(category==="All"?selectedCategories.size===0:selectedCategories.has(category)));
   button.addEventListener("click",()=>{
-    selectedCategory=category;
-    filters.querySelectorAll("button").forEach(item=>item.setAttribute("aria-pressed",String(item===button)));
+    if(category==="All"){
+      selectedCategories.clear();
+    }else if(selectedCategories.has(category)){
+      selectedCategories.delete(category);
+    }else{
+      selectedCategories.add(category);
+    }
+    filters.querySelectorAll("button").forEach(item=>{
+      const active=item.dataset.category==="All"?selectedCategories.size===0:selectedCategories.has(item.dataset.category);
+      item.setAttribute("aria-pressed",String(active));
+    });
     flashcardGeneration++;
     flashcardIndex=0;
     currentFlashcards=getFilteredRecommendations();
     renderFlashcard();
     if(!recommendationsLoading&&!recommendationsError){
       document.getElementById("discovery-status").textContent=currentFlashcards.length
-        ?`${currentFlashcards.length} ${category==="All"?"nearby":category} places · OpenStreetMap`
-        :`No ${category==="All"?"named places":category+" places"} found nearby.`;
+        ?`${currentFlashcards.length} ${getCategorySelectionLabel()} destination picks · local places and curated ideas`
+        :"No destination picks found in these categories.";
     }
   });
   filters.append(button);
@@ -1770,10 +2499,12 @@ document.getElementById("restart-discovery").disabled=false;document.getElementB
   flashcardIndex=0;
   currentFlashcards=getFilteredRecommendations();
   renderFlashcard();
-  document.getElementById("discovery-status").textContent=`Discovery restarted · ${selectedCategory==="All"?"all categories":selectedCategory}`;
+  document.getElementById("discovery-status").textContent=`Discovery restarted · ${getCategorySelectionLabel()}`;
 });
+travelSceneReady=true;
+renderTravelPins();
 function resize(){const w=viewport.clientWidth,h=viewport.clientHeight;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h);}new ResizeObserver(resize).observe(viewport);addEventListener("resize",resize);
-function animate(){requestAnimationFrame(animate);controls.update();camera.updateMatrixWorld();updateCityMarkers();renderer.render(scene,camera);}animate();
+function animate(){requestAnimationFrame(animate);controls.update();camera.updateMatrixWorld();updateCityMarkers();updateRecapRoute(performance.now());renderer.render(scene,camera);}animate();
 </script>
   </body>
 </html>
