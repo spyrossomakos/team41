@@ -346,6 +346,206 @@
         .wishlist-item a { color: var(--accent); text-decoration: none; }
         .wishlist-remove { border: 0; background: transparent; color: var(--muted); cursor: pointer; font-size: 16px; }
         .wishlist-remove:hover { color: #ff9a9a; }
+      .travel-collections { display: grid; gap: 12px; margin-top: 18px; }
+      .travel-collection-card {
+        padding: 14px 14px 12px;
+        border: 1px solid rgba(192, 214, 224, 0.18);
+        border-radius: 14px;
+        background: linear-gradient(180deg, rgba(16, 24, 31, 0.9), rgba(8, 13, 18, 0.72));
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.04), 0 10px 32px rgba(0,0,0,.22);
+        backdrop-filter: blur(18px);
+      }
+      .travel-card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin-bottom: 10px;
+      }
+      .travel-card-kicker {
+        margin: 0 0 4px;
+        color: var(--accent);
+        font: 9px ui-monospace, monospace;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+      }
+      .travel-card-header .saved-heading { font-size: 15px; }
+      .ghost-button,
+      .primary-button,
+      .secondary-button,
+      .mini-action {
+        border-radius: 8px;
+        font: 600 11px system-ui, sans-serif;
+        cursor: pointer;
+        transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+      }
+      .ghost-button,
+      .secondary-button,
+      .mini-action {
+        padding: 8px 10px;
+        border: 1px solid rgba(192,214,224,.18);
+        background: rgba(255,255,255,.03);
+        color: #dfeaf0;
+      }
+      .ghost-button:hover,
+      .secondary-button:hover,
+      .mini-action:hover,
+      .primary-button:hover {
+        transform: translateY(-1px);
+      }
+      .primary-button {
+        padding: 9px 12px;
+        border: 1px solid rgba(158,213,206,.44);
+        background: linear-gradient(120deg, rgba(164,216,207,1), rgba(176,234,228,.88));
+        color: #0b171a;
+      }
+      .mini-field {
+        display: grid;
+        gap: 6px;
+        color: #c0d0d7;
+        font: 10px/1.5 ui-monospace, monospace;
+        letter-spacing: .05em;
+        text-transform: uppercase;
+      }
+      .visit-input,
+      .visit-textarea,
+      .planner-input,
+      .planner-textarea {
+        width: 100%;
+        padding: 10px 11px;
+        border: 1px solid rgba(192,214,224,.18);
+        border-radius: 9px;
+        background: rgba(6,12,18,.58);
+        color: var(--ink);
+        font: 12px/1.5 system-ui, sans-serif;
+        resize: vertical;
+      }
+      .visit-input:focus,
+      .visit-textarea:focus,
+      .planner-input:focus,
+      .planner-textarea:focus {
+        outline: none;
+        border-color: rgba(158,213,206,.72);
+        box-shadow: 0 0 0 3px rgba(158,213,206,.08);
+      }
+      .travel-card-actions {
+        display: flex;
+        gap: 7px;
+        margin-top: 10px;
+      }
+      .travel-list {
+        list-style: none;
+        display: grid;
+        gap: 7px;
+        margin: 12px 0 0;
+        padding: 0;
+      }
+      .travel-list-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 8px 9px;
+        border: 1px solid rgba(196, 214, 224, 0.15);
+        border-radius: 8px;
+        background: rgba(255,255,255,.02);
+      }
+      .travel-list-main {
+        min-width: 0;
+        flex: 1;
+        cursor: pointer;
+      }
+      .travel-list-name {
+        display: block;
+        color: #edf5f8;
+        font-size: 12px;
+        font-weight: 600;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .travel-list-meta {
+        display: block;
+        margin-top: 2px;
+        color: rgba(166, 184, 192, 0.9);
+        font: 9px ui-monospace, monospace;
+      }
+      .travel-list-empty {
+        color: #8ba2ae;
+        font-size: 11px;
+        line-height: 1.5;
+      }
+      .travel-list-remove {
+        padding: 5px 7px;
+        border: 1px solid rgba(255, 161, 161, 0.2);
+        border-radius: 6px;
+        background: rgba(255,255,255,.02);
+        color: #ffb8b0;
+        font: 700 11px/1 system-ui, sans-serif;
+        cursor: pointer;
+      }
+      .planner-drawer {
+        position: fixed;
+        right: 0;
+        top: 0;
+        z-index: 120;
+        width: min(420px, 92vw);
+        height: 100vh;
+        padding: 18px 16px 20px;
+        border-left: 1px solid rgba(192,214,224,.18);
+        background: rgba(6, 11, 17, 0.9);
+        box-shadow: -22px 0 65px rgba(0,0,0,.32);
+        backdrop-filter: blur(22px);
+        transform: translateX(110%);
+        transition: transform 260ms cubic-bezier(.2,.8,.2,1);
+      }
+      .planner-drawer.is-open { transform: translateX(0); }
+      .planner-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 18px;
+      }
+      .planner-header h3 {
+        margin: 0;
+        font-size: 20px;
+        letter-spacing: -.03em;
+      }
+      .planner-close {
+        width: 34px;
+        height: 34px;
+        border: 1px solid rgba(192,214,224,.18);
+        border-radius: 50%;
+        background: rgba(255,255,255,.03);
+        color: #edf4f7;
+        font-size: 20px;
+        cursor: pointer;
+      }
+      .planner-body {
+        display: grid;
+        gap: 12px;
+      }
+      .planner-input,
+      .planner-textarea {
+        margin-top: 6px;
+      }
+      .planner-label {
+        display: block;
+        color: #bfd2d9;
+        font: 10px/1.5 ui-monospace, monospace;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+      }
+      .planner-meta-row {
+        display: flex;
+        gap: 8px;
+      }
+      .planner-meta-row .planner-input { flex: 1; }
+      .planner-save {
+        width: 100%;
+        margin-top: 4px;
+      }
       .saved-groups { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 12px; }
       .saved-group-title { display: flex; justify-content: space-between; margin-bottom: 7px; color: var(--muted); font: 9px ui-monospace, monospace; text-transform: uppercase; }
       .saved-list { display: flex; flex-wrap: wrap; gap: 5px; min-height: 22px; }
@@ -439,16 +639,47 @@
           <p class="osm-attribution">Places © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors</a> · Swipe right to save · left to pass</p>
           <div class="polaroid-slot" id="polaroid-slot"></div>
           <p class="card-progress" id="flashcard-progress" aria-live="polite"></p>
+          <div class="travel-collections">
+            <div class="travel-collection-card">
+              <div class="travel-card-header">
+                <div>
+                  <p class="travel-card-kicker">Visited places</p>
+                  <h2 class="saved-heading">Permanent pins</h2>
+                </div>
+                <button class="ghost-button" id="add-current-visited-button" type="button">Add current</button>
+              </div>
+              <label class="mini-field" for="visited-places-input">Bulk add your trips
+                <textarea class="visit-textarea" id="visited-places-input" rows="3" placeholder="Kyoto, Japan&#10;Lisbon, Portugal&#10;Cusco, Peru"></textarea>
+              </label>
+              <div class="travel-card-actions">
+                <button class="primary-button" id="add-visited-places-button" type="button">Save visited places</button>
+                <button class="secondary-button" id="clear-visited-input-button" type="button">Clear</button>
+              </div>
+              <ul class="travel-list" id="visited-places-list"></ul>
+            </div>
+            <div class="travel-collection-card">
+              <div class="travel-card-header">
+                <div>
+                  <p class="travel-card-kicker">Wishlist & planning</p>
+                  <h2 class="saved-heading">Future trips</h2>
+                </div>
+                <button class="ghost-button" id="add-current-wishlist-button" type="button">Add current</button>
+              </div>
+              <label class="mini-field" for="wishlist-input">Add a destination to plan later
+                <input class="visit-input" id="wishlist-input" type="text" placeholder="Kyiv, Ukraine" />
+              </label>
+              <div class="travel-card-actions">
+                <button class="primary-button" id="add-wishlist-button" type="button">Add to wishlist</button>
+              </div>
+              <ul class="travel-list" id="wishlist-list"></ul>
+            </div>
+          </div>
           <div class="saved-section">
             <h2 class="saved-heading">Saved for <span id="saved-city-name">this city</span></h2>
             <div class="saved-groups">
               <div><div class="saved-group-title">Liked <span id="liked-count">0</span></div><div class="saved-list" id="liked-places"></div></div>
               <div><div class="saved-group-title">Passed <span id="disliked-count">0</span></div><div class="saved-list" id="disliked-places"></div></div>
             </div>
-          </div>
-          <div class="wishlist-section">
-            <h2 class="saved-heading">My Travel Wishlist</h2>
-            <div class="wishlist-list" id="wishlist-list"></div>
           </div>
         </section>
         <h2 class="facts-heading">Useful information · Χρήσιμες πληροφορίες</h2>
@@ -487,6 +718,29 @@
         </div>
       </div>
     </section>
+    <aside class="planner-drawer" id="planner-drawer" aria-hidden="true" hidden>
+      <div class="planner-header">
+        <h3>Trip planner</h3>
+        <button class="planner-close" id="planner-close" type="button" aria-label="Close planner">×</button>
+      </div>
+      <div class="planner-body">
+        <label class="planner-label" for="planner-name">Destination
+          <input class="planner-input" id="planner-name" type="text" />
+        </label>
+        <div class="planner-meta-row">
+          <label class="planner-label" for="planner-date">Date
+            <input class="planner-input" id="planner-date" type="date" />
+          </label>
+        </div>
+        <label class="planner-label" for="planner-notes">Notes
+          <textarea class="planner-textarea" id="planner-notes" rows="5" placeholder="What do you want to remember?"></textarea>
+        </label>
+        <label class="planner-label" for="planner-activities">Activities
+          <textarea class="planner-textarea" id="planner-activities" rows="6" placeholder="Day 1: coffee walk&#10;Day 2: market stroll&#10;Day 3: sunset lookout"></textarea>
+        </label>
+        <button class="primary-button planner-save" id="planner-save-button" type="button">Save trip plan</button>
+      </div>
+    </aside>
     <section class="auth-screen" id="auth-screen" aria-labelledby="auth-title">
       <div class="auth-card">
         <p class="auth-brand">Elsewhere · a more personal kind of travel</p>
@@ -622,23 +876,68 @@ function showAuth(mode="login",message=""){
   document.getElementById(mode==="signup"?"signup-username":"login-email").focus();
 }
 
+function normalizeTravelPins(pins=[]){
+  if(!Array.isArray(pins))return [];
+  return pins
+    .filter(Boolean)
+    .map((pin,index)=>({
+      ...pin,
+      id: pin.id || `${pin.name || "travel-pin"}-${index}-${Date.now()}`,
+      name: String(pin.name||"").trim(),
+      latitude:Number(pin.latitude),
+      longitude:Number(pin.longitude),
+      createdAt:Number(pin.createdAt)||Date.now()+index,
+      highlights:Array.isArray(pin.highlights)?pin.highlights.map(highlight=>({
+        ...highlight,
+        name:String(highlight?.name||"").trim(),
+        category:String(highlight?.category||"Local highlight").trim(),
+        description:String(highlight?.description||"").trim(),
+        placeId:highlight?.placeId||null
+      })).filter(highlight=>highlight.name):[]
+    }))
+    .filter(pin=>pin.name && Number.isFinite(pin.latitude) && pin.latitude>=-90 && pin.latitude<=90 && Number.isFinite(pin.longitude) && pin.longitude>=-180 && pin.longitude<=180);
+}
+
+function normalizeWishlist(items=[]){
+  if(!Array.isArray(items))return [];
+  return items
+    .filter(Boolean)
+    .map((item,index)=>({
+      ...item,
+      id:item.id||`${String(item.name||"wishlist").trim() || "wishlist"}-${Date.now()}-${index}`,
+      name:String(item.name||"").trim(),
+      notes:String(item.notes||"").trim(),
+      date:String(item.date||""),
+      activities:Array.isArray(item.activities)?item.activities.map(value=>String(value).trim()).filter(Boolean):[],
+      latitude:Number.isFinite(Number(item.latitude))?Number(item.latitude):null,
+      longitude:Number.isFinite(Number(item.longitude))?Number(item.longitude):null,
+      createdAt:Number(item.createdAt)||Date.now()+index
+    }))
+    .filter(item=>item.name);
+}
+
 function setAuthenticated(profile){
-  activeProfile=profile;
+  activeProfile={
+    ...profile,
+    travelPins:normalizeTravelPins(profile?.travelPins),
+    wishlist:normalizeWishlist(profile?.wishlist)
+  };
   document.body.classList.remove("auth-locked");
   authScreen.hidden=true;
   userProfile.hidden=false;
-  document.getElementById("profile-name").textContent=profile.username;
+  document.getElementById("profile-name").textContent=activeProfile.username;
   const avatar=document.getElementById("profile-avatar");
   avatar.replaceChildren();
-  if(profile.avatar.startsWith("data:image/jpeg;base64,")){
+  if(activeProfile.avatar.startsWith("data:image/jpeg;base64,")){
     const image=document.createElement("img");
-    image.src=profile.avatar;
+    image.src=activeProfile.avatar;
     image.alt="";
     avatar.append(image);
   }else{
-    avatar.textContent=presetAvatars.includes(profile.avatar)?profile.avatar:"🧭";
+    avatar.textContent=presetAvatars.includes(activeProfile.avatar)?activeProfile.avatar:"🧭";
   }
   if(travelSceneReady)renderTravelPins();
+  renderTravelCollections();
 }
 
 function saveProfileUpdates(updates){
@@ -646,12 +945,19 @@ function saveProfileUpdates(updates){
   const accounts=readAccounts();
   const accountIndex=accounts.findIndex(account=>account.email===activeProfile.email);
   if(accountIndex<0)throw new Error("The signed-in profile could not be found in local storage.");
-  const updatedProfile={...accounts[accountIndex],...updates};
-  accounts[accountIndex]=updatedProfile;
+  const nextProfile={
+    ...accounts[accountIndex],
+    ...activeProfile,
+    ...updates,
+    travelPins:normalizeTravelPins(updates?.travelPins ?? activeProfile.travelPins ?? accounts[accountIndex].travelPins ?? []),
+    wishlist:normalizeWishlist(updates?.wishlist ?? activeProfile.wishlist ?? accounts[accountIndex].wishlist ?? [])
+  };
+  accounts[accountIndex]=nextProfile;
   localStorage.setItem(accountStorageKey,JSON.stringify(accounts));
-  activeProfile=updatedProfile;
+  activeProfile=nextProfile;
   if(travelSceneReady)renderTravelPins();
-  return updatedProfile;
+  renderTravelCollections();
+  return nextProfile;
 }
 
 function setAuthBusy(form,busy){
@@ -881,7 +1187,7 @@ signupForm.addEventListener("submit",async event=>{
     const saltBytes=crypto.getRandomValues(new Uint8Array(16));
     const salt=btoa(String.fromCharCode(...saltBytes));
     const passwordHash=await getPasswordHash(password,salt);
-    const account={email,username,avatar:selectedAvatar,travelBio,salt,passwordHash};
+    const account={email,username,avatar:selectedAvatar,travelBio,salt,passwordHash,travelPins:[],wishlist:[]};
     localStorage.setItem(accountStorageKey,JSON.stringify([...accounts,account]));
     localStorage.setItem(accountSessionKey,email);
     signupForm.reset();
@@ -950,6 +1256,7 @@ let pendingPinCoordinates=null;
 let recapSlideIndex=0;
 let recapVisible=false;
 let recapStartedAt=0;
+let recapCameraTourToken=0;
 
 function showCountryTooltip(position,label,name){
   countryTooltipLabel.textContent=label;
@@ -1641,12 +1948,11 @@ function getCategorySelectionLabel(){
 }
 
 function getProfilePins(){
-  if(!Array.isArray(activeProfile?.travelPins))return [];
-  return activeProfile.travelPins.filter(pin=>
-    pin&&typeof pin.id==="string"&&typeof pin.name==="string"&&pin.name.trim()
-    &&Number.isFinite(pin.latitude)&&pin.latitude>=-90&&pin.latitude<=90
-    &&Number.isFinite(pin.longitude)&&pin.longitude>=-180&&pin.longitude<=180
-  );
+  return normalizeTravelPins(activeProfile?.travelPins);
+}
+
+function getWishlistItems(){
+  return normalizeWishlist(activeProfile?.wishlist);
 }
 
 function getGlobePosition(latitude,longitude,radius=1.025){
@@ -1716,8 +2022,26 @@ function openPinDialog(location){
 }
 
 function closePinDialog(){
-  document.getElementById("pin-dialog").hidden=true;
+  const dialog=document.getElementById("pin-dialog");
+  if(dialog)dialog.hidden=true;
   pendingPinCoordinates=null;
+  pointerDown=null;
+  pointerDragged=false;
+  renderer.domElement.style.cursor=pinDropMode?"crosshair":"";
+}
+
+async function resolvePinLocation(placeName, fallbackLocation=null){
+  const typedName=String(placeName||"").trim();
+  if(!typedName && fallbackLocation)return fallbackLocation;
+  const fallback= fallbackLocation && Number.isFinite(fallbackLocation.latitude) && Number.isFinite(fallbackLocation.longitude)
+    ?fallbackLocation
+    :null;
+  if(!typedName)return fallback;
+  const geocoded=await geocodePlaceName(typedName);
+  if(geocoded && Number.isFinite(geocoded.latitude) && Number.isFinite(geocoded.longitude)){
+    return {latitude:Number(geocoded.latitude), longitude:Number(geocoded.longitude), country: geocoded.name || fallback?.country || ""};
+  }
+  return fallback || {latitude:0, longitude:0, country:""};
 }
 
 function getLocalPinHighlights(pin){
@@ -1858,6 +2182,33 @@ function appendRecapText(parent,tagName,className,text){
   return element;
 }
 
+function focusRecapPin(pin){
+  if(!pin||!recapVisible)return;
+  const span=Math.max(18,Math.min(48,Math.abs(pin.latitude)+Math.abs(pin.longitude)*.14));
+  flyToCoordinates(pin.latitude,pin.longitude,span);
+}
+
+function playRecapCameraSequence(pins){
+  if(!pins.length)return;
+  const tourToken=++recapCameraTourToken;
+  let index=0;
+  const step=()=>{
+    if(tourToken!==recapCameraTourToken||!recapVisible)return;
+    const pin=pins[index];
+    if(!pin){
+      const lastPin=pins.at(-1);
+      if(lastPin)focusRecapPin(lastPin);
+      return;
+    }
+    focusRecapPin(pin);
+    if(index < pins.length-1){
+      index += 1;
+      window.setTimeout(step,1700);
+    }
+  };
+  step();
+}
+
 function renderRecapSlide(){
   const pins=getProfilePins();
   const content=document.getElementById("recap-content");
@@ -1897,6 +2248,7 @@ function renderRecapSlide(){
         ?"Finding a few local cafés, landmarks, and cultural spots…"
         :"No nearby spots were found for this pin yet. You can still add more visited places to your story.");
     }
+    if(recapVisible)focusRecapPin(pin);
   }
   document.getElementById("recap-count").textContent=pins.length
     ?`${recapSlideIndex===0?"Your journey":`Place ${recapSlideIndex} of ${pins.length}`}`
@@ -1918,10 +2270,12 @@ function openTravelRecap(){
   buildRecapRoute(pins);
   renderRecapSlide();
   document.getElementById("travel-recap").hidden=false;
+  if(pins.length)playRecapCameraSequence(pins);
 }
 
 function closeTravelRecap(){
   recapVisible=false;
+  recapCameraTourToken+=1;
   document.getElementById("travel-recap").hidden=true;
   clearRecapRoute();
 }
@@ -1937,29 +2291,40 @@ document.getElementById("pin-dialog-close").addEventListener("click",closePinDia
 document.getElementById("pin-dialog").addEventListener("click",event=>{
   if(event.target.id==="pin-dialog")closePinDialog();
 });
-document.getElementById("pin-dialog-form").addEventListener("submit",event=>{
+document.getElementById("pin-dialog-form").addEventListener("submit",async event=>{
   event.preventDefault();
   if(!activeProfile||!pendingPinCoordinates)return;
   const name=document.getElementById("pin-name-input").value.trim();
-  if(!name)return;
-  const pin={
-    id:crypto.randomUUID?.()||`${Date.now()}-${Math.random().toString(36).slice(2)}`,
-    name,
-    latitude:pendingPinCoordinates.latitude,
-    longitude:pendingPinCoordinates.longitude,
-    createdAt:Date.now(),
-    highlights:getLocalPinHighlights({name,...pendingPinCoordinates})
-  };
+  if(!name){
+    document.getElementById("pin-dialog-status").textContent="Add a place name before saving it to your map.";
+    return;
+  }
+  const submitButton=event.currentTarget.querySelector('button[type="submit"]');
+  submitButton.disabled=true;
+  submitButton.textContent="Resolving coordinates…";
   try{
+    const resolved=await resolvePinLocation(name,pendingPinCoordinates);
+    const pin={
+      id:crypto.randomUUID?.()||`${Date.now()}-${Math.random().toString(36).slice(2)}`,
+      name,
+      latitude:resolved.latitude,
+      longitude:resolved.longitude,
+      createdAt:Date.now(),
+      highlights:getLocalPinHighlights({name,...resolved})
+    };
     saveProfileUpdates({travelPins:[...getProfilePins(),pin]});
     const ownerEmail=activeProfile.email;
     closePinDialog();
+    renderTravelCollections();
     document.getElementById("pin-mode-status").textContent=`Pinned ${name} · finding nearby highlights…`;
     document.getElementById("pin-mode-status").hidden=false;
     loadPinHighlights(pin.id,ownerEmail);
   }catch(error){
     console.error("Unable to save travel pin:",error);
     document.getElementById("pin-dialog-status").textContent=`Could not save this pin: ${error.message}`;
+  }finally{
+    submitButton.disabled=false;
+    submitButton.textContent="Save this pin";
   }
 });
 document.getElementById("open-recap-button").addEventListener("click",openTravelRecap);
@@ -1967,18 +2332,74 @@ document.getElementById("recap-close").addEventListener("click",closeTravelRecap
 document.getElementById("travel-recap").addEventListener("click",event=>{
   if(event.target.id==="travel-recap")closeTravelRecap();
 });
+document.getElementById("add-current-visited-button").addEventListener("click",()=>{
+  if(!activeProfile){showAuth("login","Sign in to pin your visited places.");return;}
+  if(selectedDestination){
+    addVisitedPinFromGeoTarget(selectedDestination.name, selectedDestination);
+  } else {
+    document.getElementById("pin-dialog-status").textContent="Choose a destination or place on the globe first.";
+  }
+});
+document.getElementById("add-visited-places-button").addEventListener("click",()=>{
+  if(!activeProfile){showAuth("login","Sign in to save visited places.");return;}
+  addVisitedPlacesFromBulkInput();
+});
+document.getElementById("clear-visited-input-button").addEventListener("click",()=>{
+  document.getElementById("visited-places-input").value="";
+});
+document.getElementById("add-current-wishlist-button").addEventListener("click",()=>{
+  if(!activeProfile){showAuth("login","Sign in to build your future plans.");return;}
+  addWishlistEntry(selectedDestination ? selectedDestination.name : document.getElementById("wishlist-input").value);
+});
+document.getElementById("add-wishlist-button").addEventListener("click",()=>{
+  if(!activeProfile){showAuth("login","Sign in to plan future trips.");return;}
+  addWishlistEntry(document.getElementById("wishlist-input").value);
+});
+document.getElementById("planner-close").addEventListener("click",closeWishlistPlanner);
+document.getElementById("planner-save-button").addEventListener("click",saveWishlistPlanner);
+document.getElementById("visited-places-list").addEventListener("click",event=>{
+  const removeButton=event.target.closest("[data-remove-pin]");
+  if(removeButton){removeVisitedPin(removeButton.dataset.removePin);return;}
+  const item=event.target.closest("[data-pin-id]");
+  if(item){
+    const pin=getProfilePins().find(entry=>entry.id===item.dataset.pinId);
+    if(pin){
+      focusRecapPin(pin);
+    }
+  }
+});
+document.getElementById("wishlist-list").addEventListener("click",event=>{
+  const removeButton=event.target.closest("[data-remove-wishlist]");
+  if(removeButton){removeWishlistEntry(removeButton.dataset.removeWishlist);return;}
+  const item=event.target.closest("[data-planner-id]");
+  if(item){
+    const plannerItem=getWishlistItems().find(entry=>entry.id===item.dataset.plannerId);
+    if(plannerItem)openWishlistPlanner(plannerItem);
+  }
+});
 document.getElementById("recap-previous").addEventListener("click",()=>{
   recapSlideIndex=Math.max(0,recapSlideIndex-1);
+  const pins=[...getProfilePins()].sort((first,second)=>first.createdAt-second.createdAt);
+  if(recapVisible && recapSlideIndex>0){
+    const pin=pins[recapSlideIndex-1];
+    if(pin)focusRecapPin(pin);
+  }
   renderRecapSlide();
 });
 document.getElementById("recap-next").addEventListener("click",()=>{
-  recapSlideIndex=Math.min(getProfilePins().length,recapSlideIndex+1);
+  const pins=[...getProfilePins()].sort((first,second)=>first.createdAt-second.createdAt);
+  recapSlideIndex=Math.min(pins.length,recapSlideIndex+1);
+  if(recapVisible && recapSlideIndex>0){
+    const pin=pins[recapSlideIndex-1];
+    if(pin)focusRecapPin(pin);
+  }
   renderRecapSlide();
 });
 document.addEventListener("keydown",event=>{
   if(event.key!=="Escape")return;
   if(!document.getElementById("travel-recap").hidden)closeTravelRecap();
   else if(!document.getElementById("pin-dialog").hidden)closePinDialog();
+  else if(!document.getElementById("planner-drawer").hidden)closeWishlistPlanner();
   else if(pinDropMode)setPinDropMode(false);
 });
 
@@ -2057,7 +2478,230 @@ function renderSavedCards(){
   document.getElementById("liked-count").textContent=String(saved.liked.length);
   document.getElementById("disliked-count").textContent=String(saved.passed.length);
   document.getElementById("saved-city-name").textContent=selectedDestination.name;
-  document.getElementById("wishlist-shortcut").textContent=`Wishlist ${saved.liked.length}`;
+  document.getElementById("wishlist-shortcut").textContent=`Wishlist ${getWishlistItems().length}`;
+}
+
+async function geocodePlaceName(placeName){
+  const query=String(placeName||"").trim();
+  if(!query)return null;
+  try{
+    const response=await fetch(`https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&q=${encodeURIComponent(query)}`);
+    if(!response.ok)return null;
+    const results=await response.json();
+    const first=Array.isArray(results)&&results[0];
+    if(!first)return null;
+    return {
+      name: first.display_name || query,
+      latitude:Number(first.lat),
+      longitude:Number(first.lon)
+    };
+  }catch(error){
+    console.warn("Unable to geocode a place name:",error);
+    return null;
+  }
+}
+
+function renderTravelCollections(){
+  const visitedList=document.getElementById("visited-places-list");
+  const wishlistList=document.getElementById("wishlist-list");
+  if(!visitedList||!wishlistList)return;
+
+  const pins=getProfilePins();
+  visitedList.replaceChildren();
+  if(!pins.length){
+    const empty=document.createElement("li");
+    empty.className="travel-list-empty";
+    empty.textContent="No visited places saved yet. Add one from the current destination or bulk-save a list.";
+    visitedList.append(empty);
+  }else{
+    for(const pin of [...pins].sort((first,second)=>first.createdAt-second.createdAt)){
+      const item=document.createElement("li");
+      item.className="travel-list-item";
+      const main=document.createElement("div");
+      main.className="travel-list-main";
+      main.dataset.pinId=pin.id;
+      const name=document.createElement("span");
+      name.className="travel-list-name";
+      name.textContent=pin.name;
+      const meta=document.createElement("span");
+      meta.className="travel-list-meta";
+      meta.textContent=`${pin.latitude.toFixed(3)}, ${pin.longitude.toFixed(3)}`;
+      main.append(name,meta);
+      const remove=document.createElement("button");
+      remove.type="button";
+      remove.className="travel-list-remove";
+      remove.textContent="×";
+      remove.dataset.removePin=pin.id;
+      item.append(main,remove);
+      visitedList.append(item);
+    }
+  }
+
+  const wishlist=getWishlistItems();
+  wishlistList.replaceChildren();
+  if(!wishlist.length){
+    const empty=document.createElement("li");
+    empty.className="travel-list-empty";
+    empty.textContent="Your future trips will appear here so you can plan notes and activities.";
+    wishlistList.append(empty);
+  }else{
+    for(const item of [...wishlist].sort((first,second)=>first.createdAt-second.createdAt)){
+      const row=document.createElement("li");
+      row.className="travel-list-item";
+      const main=document.createElement("div");
+      main.className="travel-list-main";
+      main.dataset.plannerId=item.id;
+      const name=document.createElement("span");
+      name.className="travel-list-name";
+      name.textContent=item.name;
+      const meta=document.createElement("span");
+      meta.className="travel-list-meta";
+      meta.textContent=item.date ? new Date(`${item.date}T00:00:00`).toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"}) : "No date set";
+      main.append(name,meta);
+      const remove=document.createElement("button");
+      remove.type="button";
+      remove.className="travel-list-remove";
+      remove.textContent="×";
+      remove.dataset.removeWishlist=item.id;
+      row.append(main,remove);
+      wishlistList.append(row);
+    }
+  }
+  const shortcut=document.getElementById("wishlist-shortcut");
+  if(shortcut)shortcut.textContent=`Wishlist ${wishlist.length}`;
+}
+
+async function addVisitedPinFromGeoTarget(locationName,locationData=null){
+  if(!activeProfile)return;
+  const normalizedName=String(locationName||"").trim();
+  if(!normalizedName){
+    document.getElementById("pin-dialog-status").textContent="Add a place name before saving it to your visited list.";
+    return;
+  }
+  const target=locationData || (selectedDestination ? {latitude:selectedDestination.latitude,longitude:selectedDestination.longitude,name:selectedDestination.name} : null);
+  const resolved=await resolvePinLocation(normalizedName, target || null);
+  const pin={
+    id:crypto.randomUUID?.()||`${Date.now()}-${Math.random().toString(36).slice(2)}`,
+    name:normalizedName,
+    latitude:Number(resolved?.latitude ?? target?.latitude ?? 0),
+    longitude:Number(resolved?.longitude ?? target?.longitude ?? 0),
+    createdAt:Date.now(),
+    highlights:[]
+  };
+  if(!Number.isFinite(pin.latitude)||!Number.isFinite(pin.longitude)||pin.latitude<-90||pin.latitude>90||pin.longitude<-180||pin.longitude>180){
+    document.getElementById("pin-dialog-status").textContent="This place needs map coordinates before it can be saved to the globe.";
+    return;
+  }
+  saveProfileUpdates({travelPins:[...getProfilePins(),pin]});
+  renderTravelPins();
+  renderTravelCollections();
+  openTravelRecap();
+}
+
+async function addVisitedPlacesFromBulkInput(){
+  const rawValue=document.getElementById("visited-places-input").value;
+  const entries=[...new Set(rawValue.split(/\n|,/) .map(value=>value.trim()).filter(Boolean))];
+  if(!entries.length){
+    document.getElementById("pin-dialog-status").textContent="Add one or more place names to save them to your visited collection.";
+    return;
+  }
+  const pins=[];
+  for(const entry of entries){
+    const geo=await geocodePlaceName(entry) || (selectedDestination ? {name:entry, latitude:selectedDestination.latitude, longitude:selectedDestination.longitude} : null);
+    if(!geo)continue;
+    pins.push({
+      id:crypto.randomUUID?.()||`${Date.now()}-${Math.random().toString(36).slice(2)}`,
+      name:geo.name.split(",")[0].trim() || entry,
+      latitude:Number(geo.latitude),
+      longitude:Number(geo.longitude),
+      createdAt:Date.now()+pins.length,
+      highlights:[]
+    });
+  }
+  if(!pins.length){
+    document.getElementById("pin-dialog-status").textContent="No valid place coordinates were found for the entries you typed. Try a city or country name.";
+    return;
+  }
+  saveProfileUpdates({travelPins:[...getProfilePins(),...pins]});
+  document.getElementById("visited-places-input").value="";
+  renderTravelPins();
+  renderTravelCollections();
+  openTravelRecap();
+}
+
+function addWishlistEntry(entryName){
+  if(!activeProfile)return;
+  const value=String(entryName||document.getElementById("wishlist-input").value||"").trim();
+  if(!value){
+    document.getElementById("pin-dialog-status").textContent="Enter a destination name before adding it to the wishlist.";
+    return;
+  }
+  const wishlist=getWishlistItems();
+  const destination=selectedDestination && normalizePlaceName(selectedDestination.name)===normalizePlaceName(value)
+    ?selectedDestination
+    :null;
+  const item={
+    id:crypto.randomUUID?.()||`${Date.now()}-${Math.random().toString(36).slice(2)}`,
+    name:value,
+    date:"",
+    notes:"",
+    activities:[],
+    latitude:destination?.latitude ?? null,
+    longitude:destination?.longitude ?? null,
+    createdAt:Date.now()
+  };
+  saveProfileUpdates({wishlist:[...wishlist,item]});
+  document.getElementById("wishlist-input").value="";
+  renderTravelCollections();
+}
+
+function openWishlistPlanner(item){
+  const planner=document.getElementById("planner-drawer");
+  if(!planner||!item)return;
+  planner.hidden=false;
+  planner.classList.add("is-open");
+  planner.setAttribute("aria-hidden","false");
+  document.getElementById("planner-name").value=item.name;
+  document.getElementById("planner-date").value=item.date||"";
+  document.getElementById("planner-notes").value=item.notes||"";
+  document.getElementById("planner-activities").value=(item.activities||[]).join("\n");
+  planner.dataset.planId=item.id;
+}
+
+function closeWishlistPlanner(){
+  const planner=document.getElementById("planner-drawer");
+  if(!planner)return;
+  planner.classList.remove("is-open");
+  planner.hidden=true;
+  planner.setAttribute("aria-hidden","true");
+  planner.dataset.planId="";
+}
+
+function saveWishlistPlanner(){
+  if(!activeProfile)return;
+  const planner=document.getElementById("planner-drawer");
+  const planId=planner?.dataset.planId;
+  if(!planId)return;
+  const name=document.getElementById("planner-name").value.trim();
+  const date=document.getElementById("planner-date").value;
+  const notes=document.getElementById("planner-notes").value.trim();
+  const activities=document.getElementById("planner-activities").value.split(/\n/).map(item=>item.trim()).filter(Boolean);
+  saveProfileUpdates({
+    wishlist:getWishlistItems().map(item=>item.id===planId?{...item,name:name||item.name,date,notes,activities}:item)
+  });
+  closeWishlistPlanner();
+}
+
+function removeVisitedPin(pinId){
+  if(!pinId)return;
+  const nextPins=getProfilePins().filter(pin=>pin.id!==pinId);
+  saveProfileUpdates({travelPins:nextPins});
+}
+
+function removeWishlistEntry(itemId){
+  if(!itemId)return;
+  const nextWishlist=getWishlistItems().filter(item=>item.id!==itemId);
+  saveProfileUpdates({wishlist:nextWishlist});
 }
 
 function renderFlashcard(){
@@ -2197,6 +2841,7 @@ function showPlace(destination){
   }
   loadDestinationRecommendations(destination);
   renderSavedCards();
+  renderTravelCollections();
 }
 
 async function selectDestination(destinationData){
