@@ -675,9 +675,9 @@
             </div>
           </div>
           <div class="saved-section">
-            <h2 class="saved-heading">Saved for <span id="saved-city-name">this city</span></h2>
+            <h2 class="saved-heading">Liked spots for <span id="saved-city-name">this city</span></h2>
             <div class="saved-groups">
-              <div><div class="saved-group-title">Liked <span id="liked-count">0</span></div><div class="saved-list" id="liked-places"></div></div>
+              <div><div class="saved-group-title">Liked spots <span id="liked-count">0</span></div><div class="saved-list" id="liked-places"></div></div>
               <div><div class="saved-group-title">Passed <span id="disliked-count">0</span></div><div class="saved-list" id="disliked-places"></div></div>
             </div>
           </div>
@@ -900,6 +900,7 @@ function normalizeTravelPins(pins=[]){
 
 function normalizeWishlist(items=[]){
   if(!Array.isArray(items))return [];
+  const seenItems=new Set();
   return items
     .filter(Boolean)
     .map((item,index)=>({
@@ -913,7 +914,13 @@ function normalizeWishlist(items=[]){
       longitude:Number.isFinite(Number(item.longitude))?Number(item.longitude):null,
       createdAt:Number(item.createdAt)||Date.now()+index
     }))
-    .filter(item=>item.name);
+    .filter(item=>{
+      if(!item.name)return false;
+      const key=normalizePlaceName(item.name)||item.id;
+      if(seenItems.has(key))return false;
+      seenItems.add(key);
+      return true;
+    });
 }
 
 function setAuthenticated(profile){
@@ -1408,6 +1415,7 @@ let currentFlashcards=[];
 let allRecommendations=[];
 let flashcardIndex=0;
 let flashcardDragStart=null;
+const seenFlashcardIds=new Set();
 let recommendationsLoading=false;
 let recommendationsError="";
 let recommendationRequest=0;
@@ -1941,6 +1949,15 @@ function getFilteredRecommendations(){
     :allRecommendations.filter(card=>selectedCategories.has(card.category));
 }
 
+function getUnseenRecommendations(){
+  const seenInDeck=new Set();
+  return getFilteredRecommendations().filter(card=>{
+    if(!card?.id||seenFlashcardIds.has(card.id)||seenInDeck.has(card.id))return false;
+    seenInDeck.add(card.id);
+    return true;
+  });
+}
+
 function getCategorySelectionLabel(){
   return selectedCategories.size
     ?[...selectedCategories].join(" + ")
@@ -2407,7 +2424,7 @@ async function loadDestinationRecommendations(destination){
   const request=++recommendationRequest;
   const radius=Number(document.getElementById("discovery-radius").value);
   allRecommendations=createDestinationDeck(destination);
-  currentFlashcards=getFilteredRecommendations();
+  currentFlashcards=getUnseenRecommendations();
   flashcardIndex=0;
   recommendationsLoading=true;
   recommendationsError="";
@@ -2425,7 +2442,7 @@ async function loadDestinationRecommendations(destination){
     if(request!==recommendationRequest||selectedDestination!==destination)return;
     allRecommendations=createDestinationDeck(destination,createPlaceRecommendations(Array.isArray(data.elements)?data.elements:[],destination));
     recommendationsLoading=false;
-    currentFlashcards=getFilteredRecommendations();
+    currentFlashcards=getUnseenRecommendations();
     renderFlashcard();
     const count=currentFlashcards.length;
     document.getElementById("discovery-status").textContent=count
@@ -2637,6 +2654,8 @@ function addWishlistEntry(entryName){
     return;
   }
   const wishlist=getWishlistItems();
+  const normalizedValue=normalizePlaceName(value);
+  if(wishlist.some(item=>normalizePlaceName(item.name)===normalizedValue&&normalizedValue))return;
   const destination=selectedDestination && normalizePlaceName(selectedDestination.name)===normalizePlaceName(value)
     ?selectedDestination
     :null;
@@ -2708,16 +2727,10 @@ function renderFlashcard(){
   const slot=document.getElementById("polaroid-slot");
   slot.replaceChildren();
   const progress=document.getElementById("flashcard-progress");
-  if(!currentFlashcards.length&&selectedDestination){
-    allRecommendations=createDestinationDeck(selectedDestination);
-    currentFlashcards=getFilteredRecommendations();
-    flashcardIndex=0;
-  }
   if(!currentFlashcards.length){
-    progress.textContent="";
+    progress.textContent=selectedDestination?"All available cards completed":"";
     return;
   }
-  if(flashcardIndex>=currentFlashcards.length)flashcardIndex=0;
   const card=currentFlashcards[flashcardIndex];
   const article=document.createElement("article");
   article.className="polaroid";
@@ -2807,7 +2820,8 @@ function renderFlashcard(){
   }
   article.append(image,copy,actions);
   slot.append(article);
-  progress.textContent=`${flashcardIndex+1} of ${currentFlashcards.length}`;
+  const currentIndex=Math.max(0,Math.min(flashcardIndex,currentFlashcards.length-1));
+  progress.textContent=`Card ${currentIndex+1} of ${currentFlashcards.length}`;
 }
 
 function showPlace(destination){
@@ -3051,15 +3065,20 @@ const polaroidSlot=document.getElementById("polaroid-slot");
 let flashcardGeneration=0;
 function decideCurrentFlashcard(decision,cardElement){
   if(!selectedDestination||flashcardIndex>=currentFlashcards.length)return;
+  if(cardElement.dataset.deciding)return;
   const generation=flashcardGeneration;
   const card=currentFlashcards[flashcardIndex];
+  if(!card?.id||seenFlashcardIds.has(card.id))return;
+  cardElement.dataset.deciding="true";
+  seenFlashcardIds.add(card.id);
+  currentFlashcards.splice(flashcardIndex,1);
+  flashcardIndex=0;
   cardElement.classList.add(decision==="liked"?"swipe-liked":"swipe-disliked");
   setTimeout(()=>{
-    if(generation!==flashcardGeneration||currentFlashcards[flashcardIndex]!==card)return;
+    if(generation!==flashcardGeneration)return;
     const saved=getSavedCards(selectedDestination);
     const list=decision==="liked"?saved.liked:saved.passed;
-    if(!list.some(item=>item.name===card.name))list.push(card);
-    flashcardIndex++;
+    if(!list.some(item=>item.id===card.id||item.name===card.name))list.push(card);
     renderFlashcard();
     renderSavedCards();
   },230);
@@ -3121,7 +3140,7 @@ for(const category of ["All",...recommendationCategories]){
     });
     flashcardGeneration++;
     flashcardIndex=0;
-    currentFlashcards=getFilteredRecommendations();
+    currentFlashcards=getUnseenRecommendations();
     renderFlashcard();
     if(!recommendationsLoading&&!recommendationsError){
       document.getElementById("discovery-status").textContent=currentFlashcards.length
@@ -3134,18 +3153,26 @@ for(const category of ["All",...recommendationCategories]){
 document.getElementById("discovery-radius").addEventListener("change",()=>{
   if(selectedDestination)loadDestinationRecommendations(selectedDestination);
 });
-document.getElementById("restart-discovery").disabled=false;document.getElementById("restart-discovery").addEventListener("click",()=>{
+const restartDiscoveryButton=document.getElementById("restart-discovery");
+restartDiscoveryButton.disabled=false;
+function restartDiscovery(){
   if(!selectedDestination)return;
-  if(recommendationsError){
-    loadDestinationRecommendations(selectedDestination);
-    return;
-  }
+  recommendationRequest++;
   flashcardGeneration++;
+  seenFlashcardIds.clear();
+  savedFlashcards.clear();
+  currentFlashcards=[];
+  allRecommendations=[];
   flashcardIndex=0;
-  currentFlashcards=getFilteredRecommendations();
+  flashcardDragStart=null;
+  recommendationsLoading=false;
+  recommendationsError="";
+  allRecommendations=createDestinationDeck(selectedDestination);
+  currentFlashcards=getUnseenRecommendations();
   renderFlashcard();
   document.getElementById("discovery-status").textContent=`Discovery restarted · ${getCategorySelectionLabel()}`;
-});
+}
+restartDiscoveryButton.addEventListener("click",restartDiscovery);
 travelSceneReady=true;
 renderTravelPins();
 function resize(){const w=viewport.clientWidth,h=viewport.clientHeight;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h);}new ResizeObserver(resize).observe(viewport);addEventListener("resize",resize);
